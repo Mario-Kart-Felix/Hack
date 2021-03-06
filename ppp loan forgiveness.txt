@@ -1,0 +1,70 @@
+We are excited to help you learn the new Paycheck Protection Forgiveness platform in support of the Cares ACT. The SBA Forgiveness platform is designed to support a simplified process - allowing lenders to submit their forgiveness decisions (3508 EZ or 3508S) and full form (3508). This site provides a step by step guide covering various API’s to create, delete, and get details on the forgiveness decisions related to SBA PPP loans.
+
+Please note the important use of the word “decision” - effectively the lender is providing their data and decision to the SBA as part of this submission. You will note a unique and discrete data element that needs to be populated when submitting the Forgiveness decision. Refer to the full SBA Procedural notice for details around these decision codes/reasons. This guide and included APIs (at times) use the term “request” and “decision” interchangeably.
+
+**Note: Github and the technical documents made available are to support lenders and their software providers. This guide is not intended to provide policy, procedure, or SBA direction. **
+
+Before you begin, please note the following considerations:
+These APIs allow you to issue a (Lender) decision to the SBA. This decision can be issued via these APIs, or via the Portal available to all Lenders that conducted PPP business. Please take special note regarding what data relative to the 3508 you need to supply to the SBA. Pay particular attention to “Approved in Part” and “Denied”. This information can be found in the official SBA Procedural notice on Forgiveness. When interacting with these APIs, you can only issue a Forgiveness decision against PPP Loans that are fully disbursed and properly marked within the SBA system of record (ETRAN).
+These APIs enforce validation routines on all submitted Forgiveness decisions including (but not limited to the following):
+The Lender (or Fintech using a Bank API Key) submitting forgiveness must match the current servicing lender within the SBA systems.
+Forgiveness calculations and forgiveness amount must also align to provided values – we do mathematical validation on your input.
+EIN/SSN must be aligned with the system of record, you will be unable to submit if your provided (EIN or SSN) do not match the system of record.
+API Prerequisite
+Authorization: All the API’s require Authorization parameters that are needed to be passed in each of the API request. Details below:
+
+Sandbox
+
+For clients to authenticate, the token key should be included in the Authorization HTTP header. The key should be prefixed by the string literal ‘Token’, with white space separating the two strings. For example:
+
+Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+
+You will get this token under Sandbox API key (Box folder), look out for email from US SBA Forgiveness (noreply@box.com) .
+
+A Vendor Key is also required. A Vendor Key needs to be passed in the HTTP header as shown with an example.
+
+Vendor-Key: b4784996-c592-4794-b9fe-3c51e6acd49d
+
+You will get this key under Vendor key (Box folder), look out for email from US SBA Forgiveness (noreply@box.com) .
+
+Production
+
+For clients to authenticate, the token key should be included in the Authorization HTTP header. The key should be prefixed by the string literal ‘Token’, with white space separating the two strings. For example:
+
+Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+
+Your Bank AO can provide token to you.
+
+A Vendor Key is also required. A vendor key will only be provided after client succesfully completes their development by using SBA API’s in sandbox. Vendor key will be available in Box folder after sandbox certification. Vendor Key will be passed in the HTTP header as shown below with an example.
+
+Vendor-Key: b4784996-c592-4794-b9fe-3c51e6acd49d
+
+
+(Also, most endpoints allow for lookups using SBA Number. To do a lookup by SBA Number add to the ?sba_number=xxx endpoint.)
+
+Important: All API end points must match API dictionary format, for instance having “/” at the end of the URL request for POST, PUT & DELETE API requests
+
+Environment
+All the forgiveness API’s are exposed in the Sandbox and Production environment
+
+Environment	URL
+Sandbox	https://sandbox.forgiveness.sba.gov/
+Production	https://forgiveness.sba.gov/
+SBA 3508 & 3508EZ Document to API Field Mappings
+Please review 3508 and 3508EZ forms showing mapping of elements on the PDF to API attributes.
+
+Use Cases
+Use Case 1: Submission of forgiveness requests - Create a forgiveness request and submit loan documents
+Use Case 2: Re-submission of forgiveness requests - Withdraw and resubmit the forgiveness request if the original was filed in error
+Use Case 3: Get forgiveness details - Get the status and additional details about an already submitted forgiveness request
+Use Case 4: Get document types - Get details about the global functional document types (Not file types) accepted by SBA for forgiveness
+Use Case 5: Correctional Document Upload - Upload additional documents based on feedback from SBA
+Use Case 6: Lookup/Validate disbursed PPP Loans
+API Dictionary here
+FAQ here
+Design Consideration here
+Example code
+Sample C#, Java and Python code can be found at our github repositories here
+
+Developer Support
+You can reach out to developer support @ developer@ussbaforgiveness.com
