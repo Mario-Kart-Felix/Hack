@@ -1,0 +1,298 @@
+/*
+Name         : TypeScript class
+File         : typescript-class.ts
+Description  : TypeScript class overview
+Objectives   : Expose the capabilities of classs in TypeScrit.
+Usage        : See instructions in .ts file.
+Compatibility: caniuse.com, modern browsers.
+Rights       : Copyright (c) 2017 vincentperrin.com - MIT License       
+*/
+ 
+/*
+Prerequesite:
+- Have Node.js installed
+ 
+Set up:
+- Need to setup TypeScript with node in a mini project. Run in the current project folder:
+$ npm install typescript
+ 
+Execution:
+- Then run the following in order to let TypeScript watch for the modification of your .ts file and transcript it into a .js file:
+$ ./node_modules/.bin/tsc typescript-class.ts --watch
+*/
+ 
+ 
+abstract class LifeForm {
+    constructor(readonly name: string) { }
+ 
+    printName(): void {
+        console.log('LifeForm name: ' + this.name);
+    }
+ 
+    abstract move(): void; // must be implemented in derived classes
+}
+ 
+class Animal extends LifeForm {
+    name: string;
+ 
+    constructor(theName: string, theNickName?: string) { 
+        super(theName); 
+    }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+ 
+}
+ 
+ 
+class Pet extends LifeForm {
+    name: string;
+    private insurranceId: string;
+    protected nickName: string;
+    static isDomesticated: boolean = true;
+ 
+    constructor(theName: string, theInsurranceId: string, theNickName?: string) { 
+        super(theName); 
+        this.insurranceId = theInsurranceId;
+        this.nickName = theNickName;
+    }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+ 
+    giveInsurranceId() {
+        console.log('Insurrance Id: ' + this.insurranceId);
+    }
+ 
+    tellNickName() {
+        console.log('Nickname: ' + this.nickName);
+    }
+ 
+}
+ 
+class Whale extends Animal {
+    constructor(name: string) {
+        super(name);
+    }
+    move(distanceInMeters = 20) {
+        console.log('Swimming...');
+        super.move(distanceInMeters);
+    }
+}
+ 
+class Dog extends Pet {
+    constructor(name: string, theInsurranceId: string, theNickName?: string) { 
+        super(name, theInsurranceId, theNickName);
+    }
+ 
+    move(distanceInMeters = 15) {
+        console.log('Running...');
+        super.move(distanceInMeters);
+    }
+ 
+}
+ 
+interface bionicAnimal {
+    isElectronic: boolean;
+    kill():void;
+}
+ 
+class WarDog extends Animal implements bionicAnimal {
+    constructor(name: string, theInsurranceId: string) { 
+        super(name, theInsurranceId,);
+    }
+ 
+    readonly isElectronic = true;
+ 
+    move(distanceInMeters = 450) {
+        console.log('Running fast...');
+        super.move(distanceInMeters);
+    }
+ 
+    kill() {
+        console.log('I kill');
+    }
+ 
+}
+ 
+let theWhale: Whale;
+let theDog: Dog;
+let robotKillerDog: WarDog
+ 
+ 
+theWhale = new Whale('Waly');
+theWhale.printName();
+theWhale.move();
+ 
+// Using a static property to chose the correct type of animal
+if (Dog.isDomesticated) {
+    console.log('I prefer to get a pet because it is domesticated.');
+ 
+    theDog = new Dog('Peter', 'njshdfkjshd', 'doggydog');
+    theDog.printName();
+    theDog.tellNickName();
+    theDog.giveInsurranceId();
+    theDog.move(60);
+}
+ 
+robotKillerDog = new WarDog('X12', 'X12_866867zt');
+robotKillerDog.printName();
+robotKillerDog.move();
+robotKillerDog.kill();
+if (robotKillerDog.isElectronic) {
+    console.log('Let\'s put it in water to get rid of it');
+}
+typescript-class.html
+<!-- 
+Name         : TypeScript class
+File         : typescript-class.html
+Description  : TypeScript class overview
+Objectives   : Expose the capabilities of classs in TypeScrit.
+Usage        : See instructions in .ts file.
+Compatibility: caniuse.com, modern browsers.
+Rights       : Copyright (c) 2017 vincentperrin.com - MIT License             
+-->
+ 
+ 
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Typescript class</title>
+    <meta name="description" content="TypeScript class overview">
+    <meta name="author" content="vincentperrin.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>Typescript class</h1>
+    </header>
+    <section>
+        <article>
+            <header>
+                <h2>TypeScript class overview</h2>
+                <p>
+                    Expose the capabilities of classes in TypeScrit.
+                </p>
+            </header>
+            <p>
+<h3>Prerequesite</h3>
+- Have Node.js installed
+<h3>Set up</h3>
+- Need to setup TypeScript with node in a mini project. Run in the current project folder:<br />
+$ <b>npm install typescript</b>
+<h3>Execution</h3>
+- Then run the following in order to let TypeScript watch for the modification of your .ts file and transcript it into a .js file:<br />
+$ <b>./node_modules/.bin/tsc typescript-class.ts --watch</b>
+<br />
+            </p>
+        </article>
+    </section>
+    <footer>
+        <p>Copyright <time datetime="2015">2017</time> vincentperrin.com</p>
+    </footer>
+    <script src="typescript-class.js?v=1.0"></script>
+</body>
+</html>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+<!-- 
+Name         : TypeScript class
+File         : typescript-class.html
+Description  : TypeScript class overview
+Objectives   : Expose the capabilities of classs in TypeScrit.
+Usage        : See instructions in .ts file.
+Compatibility: caniuse.com, modern browsers.
+Rights       : Copyright (c) 2017 vincentperrin.com - MIT License             
+-->
+ 
+ 
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Typescript class</title>
+    <meta name="description" content="TypeScript class overview">
+    <meta name="author" content="vincentperrin.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>Typescript class</h1>
+    </header>
+    <section>
+        <article>
+            <header>
+                <h2>TypeScript class overview</h2>
+                <p>
+                    Expose the capabilities of classes in TypeScrit.
+                </p>
+            </header>
+            <p>
+<h3>Prerequesite</h3>
+- Have Node.js installed
+<h3>Set up</h3>
+- Need to setup TypeScript with node in a mini project. Run in the current project folder:<br />
+$ <b>npm install typescript</b>
+<h3>Execution</h3>
+- Then run the following in order to let TypeScript watch for the modification of your .ts file and transcript it into a .js file:<br />
+$ <b>./node_modules/.bin/tsc typescript-class.ts --watch</b>
+<br />
+            </p>
+        </article>
+    </section>
+    <footer>
+        <p>Copyright <time datetime="2015">2017</time> vincentperrin.com</p>
+    </footer>
+    <script src="typescript-class.js?v=1.0"></script>
+</body>
+</html>
