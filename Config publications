@@ -1,0 +1,36 @@
+Configuring a publishing source for your GitHub Pages site
+If you use the default publishing source for your GitHub Pages site, your site will publish automatically. You can also choose to publish your site from a different branch or folder.
+
+People with admin or maintainer permissions for a repository can configure a publishing source for a GitHub Pages site.
+
+GitHub Pages is available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see "GitHub's products."
+
+In this article
+Choosing a publishing source
+Troubleshooting publishing problems with your GitHub Pages site
+For more information about publishing sources, see "About GitHub Pages."
+
+Choosing a publishing source
+Before you configure a publishing source, make sure the branch you want to use as your publishing source already exists in your repository.
+
+On GitHub, navigate to your site's repository.
+
+Under your repository name, click  Settings.
+Repository settings button
+
+In the left sidebar, click Pages.
+Page tab in the left-hand sidebar
+
+Under "GitHub Pages", use the None or Branch drop-down menu and select a publishing source.
+Drop-down menu to select a publishing source
+
+Optionally, use the drop-down menu to select a folder for your publishing source.
+Drop-down menu to select a folder for publishing source
+
+Click Save.
+Button to save changes to publishing source settings
+
+Troubleshooting publishing problems with your GitHub Pages site
+Note: If your site has not published automatically, make sure someone with admin permissions and a verified email address has pushed to the publishing source.
+
+If you choose the docs folder on any branch as your publishing source, then later remove the /docs folder from that branch in your repository, your site won't build and you'll get a page build error message for a missing /docs folder. For more information, see "Troubleshooting Jekyll build errors for GitHub Pages sites."
