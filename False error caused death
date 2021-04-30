@@ -1,0 +1,6 @@
+Redirect the stderr output of mysql --help to stdout and you can grep it.
+
+mysqld --help 2>&1 | grep -ci error
+This will result in 0 with no errors and the amount of errors if there are any.
+
+If you want to rely on return codes instead you can use grep -qi. It is however a little counterintuitive, since grep will return 0 when it did find the string error, and it will return 1 when it did NOT find the string.
