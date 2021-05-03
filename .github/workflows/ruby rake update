@@ -1,0 +1,17 @@
+Upgrade rack to version 2.1.4 or later. For example:
+
+gem "rack", ">= 2.1.4"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-8161
+moderate severity
+Vulnerable versions: < 2.1.3
+Patched version: 2.1.3
+A directory traversal vulnerability exists in rack < 2.2.0 that allows an attacker perform directory traversal vulnerability in the Rack::Directory app that is bundled with Rack which could result in information disclosure.
+
+CVE-2020-8184
+high severity
+Vulnerable versions: < 2.1.4
+Patched version: 2.1.4
+A reliance on cookies without validation/integrity check security vulnerability exists in rack < 2.2.3, rack < 2.1.4 that makes it is possible for an attacker to forge a secure or host-only cookie prefix.
