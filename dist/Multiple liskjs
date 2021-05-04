@@ -1,0 +1,6 @@
+If you have the CSS values as string and there is no other CSS already set for the element (or you don't care about overwriting), make use of the cssText property:
+
+document.getElementById("myElement").style.cssText = "display: block; position: absolute";
+This is good in a sense as it avoids repainting the element every time you change a property (you change them all "at once" somehow).
+
+On the other side, you would have to build the string first.
