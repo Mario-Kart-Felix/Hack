@@ -1,0 +1,90 @@
+body {
+    background-color: rgb(253, 253, 253);
+    font-family: Alegreya Sans, Verdana;
+}
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    font-family: Alegreya Sans, Verdana;
+    width: 100%;
+    bottom: 0;
+    font-size: 12px;
+}
+
+button {
+    font-family: Alegreya Sans, Verdana;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.input-section, .output-section {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.input-text, .output-text {
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+    font-size: 45px;
+    font-family: Cutive Mono, monospace;
+    text-transform: uppercase;
+}
+
+.buttons-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settings {
+    display: none;
+    text-align: center;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.settings-content {
+    bottom: 0;
+    width: 100%;
+}
+
+.settings-section {
+    padding: 2px 16px;
+}
+
+.settings-section h2 {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.settings-section input {
+    text-align: center;
+    font-family: Cutive Mono, monospace;
+    font-size: 12px;
+    width: 30px;
+}
+
+.settings-subsection {
+    padding-right: 10px;
+    padding-left: 10px;
+    /*width: 300px;*/
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.plugboard-settings {
+    width: 100%;
+}
