@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Enigma</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <script src="enigma.js"></script>
+
+        <link rel="stylesheet" href="main.css">
+        <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body>
+        <h1>Enigma Simulator</h1>
+
+        <div class="enigma-section">
+            <div class="input-section">
+                <input class="input-text" id="enigma-input" type="text" placeholder="Input">
+            </div>
+
+            <div class="output-section">
+                <input class="output-text" id="enigma-output" type="text" placeholder="Output" readonly>
+            </div>
+        </div>
+
+        <div class="buttons-section">
+            <button id="settings-section-btn">Show Settings</button>
+        </div>
+
+        <div class="settings" id="settings-section">
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h2>Rotors settings</h2>
+
+                    <div class="settings-subsection">
+                        <label><a href="https://en.wikipedia.org/wiki/Enigma_machine#Rotors">Rotor types (Walzenlage)</a></label>
+                        <select class="rotor-type-settings" id="rotor-type-left">
+                            <option value="I" selected>I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                        </select>
+
+                        <select class="rotor-type-settings" id="rotor-type-middle">
+                            <option value="I">I</option>
+                            <option value="II" selected>II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                        </select>
+
+                        <select class="rotor-type-settings" id="rotor-type-right">
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III" selected>III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                        </select>
+                    </div>
+                    <div class="settings-subsection">
+                        <label><a href="https://en.wikipedia.org/wiki/Enigma_rotor_details#Rotor_offset">Ground settings (Grundstellung)</a></label>
+                        <input class="rotor-settings" id="rotor-left-pos" type="text" value="A">
+                        <input class="rotor-settings" id="rotor-middle-pos" type="text" value="A">
+                        <input class="rotor-settings" id="rotor-right-pos" type="text" value="A">
+                    </div>
+                    <div class="settings-subsection">
+                        <label><a href="https://en.wikipedia.org/wiki/Enigma_rotor_details#Ring_setting">Ring settings (Ringstellung)</a></label>
+                        <input class="rotor-settings" id="ring-left-pos" type="text" value="A">
+                        <input class="rotor-settings" id="ring-middle-pos" type="text" value="A">
+                        <input class="rotor-settings" id="ring-right-pos" type="text" value="A">
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h2>Reflector settings</h2>
+
+                    <div class="settings-subsection">
+                        <label><a href="https://en.wikipedia.org/wiki/Enigma_machine#Reflector">Reflector type (Umkehrwalze)</a></label>
+                        <select class="reflector-settings" id="reflector-type">
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2>Plugboard settings</h2>
+
+                    <div class="settings-subsection">
+                        <label><a href="https://en.wikipedia.org/wiki/Enigma_machine#Plugboard">Plugboard connections (Steckerbrett)</a></label>
+                        <table class="plugboard-settings">
+                            <tr>
+                                <td>
+                                    <label for="plugboard-A">A</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-A" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-B">B</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-B" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-C">C</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-C" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-D">D</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-D" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-E">E</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-E" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-F">F</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-F" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-G">G</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-G" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-H">H</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-H" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-I">I</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-I" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-J">J</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-J" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-K">K</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-K" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-L">L</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-L" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-M">M</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-M" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="plugboard-N">N</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-N" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-O">O</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-O" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-P">P</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-P" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-Q">Q</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-Q" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-R">R</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-R" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-S">S</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-S" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-T">T</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-T" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-U">U</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-U" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-V">V</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-V" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-W">W</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-W" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-X">X</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-X" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-Y">Y</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-Y" type="text">
+                                </td>
+                                <td>
+                                    <label for="plugboard-Z">Z</label>
+                                    <input class="plugboard-letter-settings" id="plugboard-letter-Z" type="text">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h2>Help</h2>
+
+                    <div class="settings-subsection">
+                        <p>
+                            <a href="https://www.youtube.com/watch?v=mcX7iO_XCFA">The inner workings of an Enigma machine</a><br>
+                            <a href="https://www.theguardian.com/technology/2014/nov/14/how-did-enigma-machine-work-imitation-game">How did the Enigma machine work?</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+        $(function() {
+            var isValidInput = function(input) {
+                return /^[a-zA-Z]*$/g.test(input);
+            };
+
+            var isAlphabeticChar = function(input) {
+                return /^[a-zA-Z]$/g.test(input);
+            };
+
+            var isDifferentChar = function(input, current) {
+                return (input !== current);
+            };
+
+            var isValidPlugboardConfig = function(input, current) {
+                return (isAlphabeticChar(input)
+                    && isDifferentChar(input, current));
+            };
+
+            var getPlugboardConfig = function() {
+                var pairs = $('.plugboard-letter-settings').map(function() {
+                    thisLetter = $(this).attr('id').slice(-1);
+                    otherLetter = $(this).val().toUpperCase();
+
+                    if (otherLetter)
+                        return (thisLetter + otherLetter);
+                }).get();
+
+                return pairs;
+            };
+
+            var getRotorInstance = function(pos) {
+                var type = $('#rotor-type-' + pos).val();
+
+                if (type === 'I')
+                    rotor = new RotorI();
+                else if (type === 'II')
+                    rotor = new RotorII();
+                else if (type === 'III')
+                    rotor = new RotorIII();
+                else if (type === 'IV')
+                    rotor = new RotorIV();
+                else if (type === 'V')
+                    rotor = new RotorV();
+
+                return rotor;
+            }
+
+            var getReflectorInstance = function() {
+                var reflector;
+
+                if ($('#reflector-type').val() === 'B')
+                    reflector = new ReflectorB();
+                else if ($('#reflector-type').val() === 'C')
+                    reflector = new ReflectorC();
+
+                return reflector;
+            }
+
+            var encode = function(input) {
+                getPlugboardConfig();
+
+                var machine = new Machine();
+
+                var plugboard = new Plugboard();
+                plugboard.addPlugs.apply(plugboard, getPlugboardConfig());
+                machine.setPlugboard(plugboard);
+
+                var rightRotor = getRotorInstance('right');
+                rightRotor.setInnerPosition($('#ring-right-pos').val());
+                rightRotor.setInitialPosition($('#rotor-right-pos').val());
+
+                var middleRotor = getRotorInstance('middle');
+                middleRotor.setInnerPosition($('#ring-middle-pos').val());
+                middleRotor.setInitialPosition($('#rotor-middle-pos').val());
+
+                var leftRotor = getRotorInstance('left');
+                leftRotor.setInnerPosition($('#ring-left-pos').val());
+                leftRotor.setInitialPosition($('#rotor-left-pos').val());
+
+                machine.setRotors(leftRotor, middleRotor, rightRotor);
+
+                var reflector = getReflectorInstance();
+                machine.setReflector(reflector);
+
+                return machine.encodeLetters(input);
+            };
+
+            var updateOutput = function() {
+                $('#enigma-output').val(encode($('#enigma-input').val()));
+            };
+
+            $('#enigma-input').keyup(function(e) {
+                input = $(this).val();
+                validInput = input.replace(/([^a-zA-Z]+)/gi, '').toUpperCase();
+                $(this).val(validInput);
+                updateOutput();
+            });
+
+            $('.rotor-settings').keydown(function(e) {
+                e.preventDefault();
+
+                letter = String.fromCharCode(e.keyCode).toUpperCase();
+
+                if (isAlphabeticChar(letter))
+                    $(this).val(letter);
+
+                updateOutput();
+            });
+
+            $('.plugboard-letter-settings').keydown(function(e) {
+                e.preventDefault();
+
+                thisLetter = $(this).attr('id').slice(-1);
+                otherLetter = String.fromCharCode(e.keyCode).toUpperCase();
+                previousLetter = $(this).attr('previousLetter');
+
+                // Erase any other letter that is currently connected to the
+                // letter we want right now
+                if (isAlphabeticChar(otherLetter)) {
+                    currentOtherLetter = $('#plugboard-letter-' + otherLetter).val();
+                    if (currentOtherLetter)
+                        $('#plugboard-letter-' + currentOtherLetter).val('');
+                }
+
+                // Erasing the letter that we were previously connected to
+                if (previousLetter)
+                    $('#plugboard-letter-' + previousLetter).val('');
+
+                if (isValidPlugboardConfig(otherLetter, thisLetter)) {
+                    $(this).val(otherLetter);
+                    $(this).attr('previousLetter', otherLetter);
+                    $('#plugboard-letter-' + otherLetter).val(thisLetter);
+                    $('#plugboard-letter-' + otherLetter).attr('previousLetter', thisLetter);
+                } else {
+                    $(this).attr('previousLetter', '');
+                    $(this).val('');
+                }
+
+                updateOutput();
+            });
+
+            $('select[id^=rotor-type-]').change(function() {
+                // Get a list of the ids that are selected
+                var selected = [];
+                $('[id^=rotor-type-] option:selected').each(function() {
+                    selected.push($(this).val());
+                });
+
+                // Walk through every select option and enable if not
+                // in the list and not already selected
+                $('[id^=rotor-type-] option').each(function()
+                {
+                    if (!$(this).is(':selected'))
+                    {
+                        var shouldDisable = false;
+                        for (var i = 0; i < selected.length; i++)
+                        {
+                            if (selected[i] == $(this).val())
+                                shouldDisable = true;
+                        }
+
+                        $(this).css('text-decoration', '');
+                        $(this).removeAttr('disabled', 'disabled');
+
+                        if (shouldDisable) {
+                            $(this).css('text-decoration', 'line-through');
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    }
+                });
+
+                updateOutput();
+            });
+
+            $('#settings-section-btn').click(function() {
+                $('#settings-section').toggle();
+
+                if ($(this).text() == 'Show Settings')
+                    $(this).text('Hide Settings');
+                else
+                    $(this).text('Show Settings');
+            });
+
+            $('.reflector-settings').change(function() {
+                updateOutput();
+            });
+        });
+        </script>
+
+        <footer>
+            <p>Developed by <a href="http://www.matheusportela.com">Matheus V. Portela</a></p>
+        </footer>
+
+        <a href="https://github.com/matheusportela/enigma-machine/">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+        </a>
+    </body>
+</html>
