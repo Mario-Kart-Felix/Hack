@@ -1,0 +1,110 @@
+Remediation
+Upgrade actionpack to version 5.2.4.6 or later. For example:
+
+gem "actionpack", ">= 5.2.4.6"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2021-22885
+moderate severity
+Vulnerable versions: >= 2.0.0, <= 5.2.4.5
+Patched version: 5.2.4.6
+Impact
+There is a possible information disclosure / unintended method execution
+vulnerability in Action Pack when using the redirect_to or polymorphic_url
+helper with untrusted user input.
+
+Vulnerable code will look like this.
+
+redirect_to(params[:some_param])
+All users running an affected release should either upgrade or use one of the
+workarounds immediately.
+
+Releases
+The FIXED releases are available at the normal locations.
+
+Workarounds
+To work around this problem, it is recommended to use an allow list for valid
+parameters passed from the user. For example,
+
+private def check(param)
+  case param
+  when "valid"
+    param
+  else
+    "/"
+  end
+end
+
+def index
+  redirect_to(check(params[:some_param]))
+end
+Or force the user input to be cast to a string like this,
+
+def index
+  redirect_to(params[:some_param].to_s)
+end
+Patches
+To aid users who aren't able to upgrade immediately we have provided patches for
+the two supported release series. They are in git-am format and consist of a
+single changeset.
+
+5-2-information-disclosure.patch - Patch for 5.2 series
+6-0-information-disclosure.patch - Patch for 6.0 series
+6-1-information-disclosure.patch - Patch for 6.1 series
+Please note that only the 5.2, 6.0, and 6.1 series are supported at present. Users
+of earlier unsupported releases are advised to upgrade as soon as possible as we
+cannot guarantee the continued availability of security fixes for unsupported
+releases.
+
+Credits
+Thanks to Benoit Côté-Jodoin from Shopify for reporting this.
+
+CVE-2021-22904
+moderate severity
+Vulnerable versions: >= 2.0.0, <= 5.2.4.5
+Patched version: 5.2.4.6
+Impact
+Impacted code uses authenticate_or_request_with_http_token or
+authenticate_with_http_token for request authentication. Impacted code will
+look something like this:
+
+class PostsController < ApplicationController
+  before_action :authenticate
+
+  private
+
+  def authenticate
+    authenticate_or_request_with_http_token do |token, options|
+      # ...
+    end
+  end
+end
+All users running an affected release should either upgrade or use one of the
+workarounds immediately.
+
+Releases
+The fixed releases are available at the normal locations.
+
+Workarounds
+The following monkey patch placed in an initializer can be used to work around
+the issue:
+
+module ActionController::HttpAuthentication::Token
+  AUTHN_PAIR_DELIMITERS = /(?:,|;|\t)/
+end
+Patches
+To aid users who aren't able to upgrade immediately we have provided patches for
+the two supported release series. They are in git-am format and consist of a
+single changeset.
+
+5-2-http-authentication-dos.patch - Patch for 5.2 series
+6-0-http-authentication-dos.patch - Patch for 6.0 series
+6-1-http-authentication-dos.patch - Patch for 6.1 series
+Please note that only the 6.1.Z, 6.0.Z, and 5.2.Z series are supported at
+present. Users of earlier unsupported releases are advised to upgrade as soon
+as possible as we cannot guarantee the continued availability of security
+fixes for unsupported releases.
+
+Credits
+Thank you to https://hackerone.com/wonda_tea_coffee for reporting this issue!
