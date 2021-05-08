@@ -1,0 +1,12 @@
+Upgrade merge to version 2.1.1 or later. For example:
+
+merge@^2.1.1:
+  version "2.1.1"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-28499
+high severity
+Vulnerable versions: < 2.1.1
+Patched version: 2.1.1
+All versions of package merge <2.1.1 are vulnerable to Prototype Pollution via _recursiveMerge .
