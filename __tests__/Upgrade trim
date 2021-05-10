@@ -1,0 +1,12 @@
+Upgrade trim to version 0.0.3 or later. For example:
+
+trim@^0.0.3:
+  version "0.0.3"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-7753
+high severity
+Vulnerable versions: < 0.0.3
+Patched version: 0.0.3
+All versions of package trim lower than 0.0.3 are vulnerable to Regular Expression Denial of Service (ReDoS) via trim().
