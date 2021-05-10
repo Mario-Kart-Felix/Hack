@@ -1,0 +1,17 @@
+Upgrade @grpc/grpc-js to version 1.1.8 or later. For example:
+
+"dependencies": {
+  "@grpc/grpc-js": ">=1.1.8"
+}
+or…
+"devDependencies": {
+  "@grpc/grpc-js": ">=1.1.8"
+}
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-7768
+high severity
+Vulnerable versions: < 1.1.8
+Patched version: 1.1.8
+"The package grpc before 1.24.4 and the package @grpc/grpc-js before 1.1.8 are vulnerable to Prototype Pollution via loadPackageDefinition."
