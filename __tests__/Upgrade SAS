@@ -1,0 +1,20 @@
+SAS® Help Center
+Version
+Updating the SAS High-Performance Computing Management Console
+Overview of Updating the Management Console
+Update the Management Console Using RPM
+Overview of Updating the Management Console
+Starting in version 2.6 of SAS High-Performance Computing Management Console, there is no longer support for memory management through CGroups.
+Before upgrading the management console to version 2.6 (or later), make sure that you manually record any memory settings and then clear them on the CGroup Resource Management page. You can manually transfer these memory settings to the SAS High-Performance Analytics environment resource settings file. Or, if you are implementing YARN, transfer these settings to YARN. For more information, see the SAS LASR Analytic Server: Reference Guide.
+Update the Management Console Using RPM
+To update your deployment of SAS High-Performance Computing Management Console, follow these steps:
+Make sure that you have manually recorded and then cleared any memory settings in the management console. For more information, see Overview of Updating the Management Console.
+Stop the server by entering the following command as the root user:
+service sashpcmc stop
+Update the management console using the following RPM command:
+rpm -U --prefix=install-directory 
+/SAS-Software-Depot-root-directory/standalone_installs/
+SAS_High-Performance_Computing_Management_Console/2_9/Linux_for_x64/
+sashpcmc-2.9.x86_64.rpm
+In this command, install-directory is the location where the management console is installed and SAS-Software-Depot-root-directory is the location where your SAS Software Depot resides.
+Log on to the console to validate your update.
