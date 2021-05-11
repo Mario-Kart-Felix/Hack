@@ -1,0 +1,85 @@
+Dependabot can't resolve your Python dependency files
+Dependabot failed to update your dependencies because there was an error resolving your Python dependency files.
+
+Dependabot encountered the following error:
+
+Pipenv failed to install "opencv-python". This could be caused by missing system dependencies that can't be installed by Dependabot or required installation flags.
+
+Error output from running "pipenv lock":
+pipenv.patched.notpip._internal.exceptions.InstallationError: Command "python setup.py egg_info" failed with error code 1 in /tmp/tmpqny6jfbbbuild/opencv-python/
+File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/resolver.py", line 126, in <module>
+    main()
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/resolver.py", line 118, in main
+    _main(parsed.pre, parsed.clear, parsed.verbose, parsed.system,
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/resolver.py", line 78, in _main
+    results = resolve(
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/resolver.py", line 61, in resolve
+    return resolve_deps(
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 718, in resolve_deps
+    resolved_tree, hashes, markers_lookup, resolver = actually_resolve_deps(
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 480, in actually_resolve_deps
+    resolved_tree = resolver.resolve()
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 385, in resolve
+    results = self.resolver.resolve(max_rounds=environments.PIPENV_MAX_ROUNDS)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/resolver.py", line 102, in resolve
+    has_changed, best_matches = self._resolve_one_round()
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/resolver.py", line 206, in _resolve_one_round
+    for dep in self._iter_dependencies(best_match):
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/resolver.py", line 301, in _iter_dependencies
+    dependencies = self.repository.get_dependencies(ireq)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/repositories/pypi.py", line 234, in get_dependencies
+    legacy_results = self.get_legacy_dependencies(ireq)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/repositories/pypi.py", line 426, in get_legacy_dependencies
+    results, ireq = self.resolve_reqs(download_dir, ireq, wheel_cache)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/piptools/repositories/pypi.py", line 297, in resolve_reqs
+    results = resolver._resolve_one(reqset, ireq)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/resolve.py", line 260, in _resolve_one
+    abstract_dist = self._get_abstract_dist_for(req_to_install)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/resolve.py", line 211, in _get_abstract_dist_for
+    abstract_dist = self.preparer.prepare_linked_requirement(
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/operations/prepare.py", line 294, in prepare_linked_requirement
+    abstract_dist.prep_for_dist(finder, self.build_isolation)
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/operations/prepare.py", line 127, in prep_for_dist
+    self.req.run_egg_info()
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/req/req_install.py", line 470, in run_egg_info
+    call_subprocess(
+  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/patched/notpip/_internal/utils/misc.py", line 703, in call_subprocess
+    raise InstallationError(
+pipenv.patched.notpip._internal.exceptions.InstallationError: Command "python setup.py egg_info" failed with error code 1 in /tmp/tmpqny6jfbbbuild/opencv-python/
+
+['Traceback (most recent call last):\n', '  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 501, in create_spinner\n    yield sp\n', '  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 649, in venv_resolve_deps\n    c = resolve(cmd, sp)\n', '  File "/usr/local/.pyenv/versions/3.8.9/lib/python3.8/site-packages/pipenv/utils.py", line 539, in resolve\n    sys.exit(c.return_code)\n', 'SystemExit: 1\n']
+View logs or learn more about troubleshooting Dependabot errors.
+
+1 pillow vulnerability found in Pipfile.lock 12 days ago
+Remediation
+Upgrade pillow to version 8.1.2 or later. For example:
+
+[packages]
+pillow = ">=8.1.2"
+or…
+[dev-packages]
+pillow = ">=8.1.2"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+GHSA-jgpv-4h4c-xhw3
+moderate severity
+Vulnerable versions: < 8.1.1
+Patched version: 8.1.2
+Impact
+Pillow before 8.1.1 allows attackers to cause a denial of service (memory consumption) because the reported size of a contained image is not properly checked for a BLP container, and thus an attempted memory allocation can be very large.
+
+Patches
+An issue was discovered in Pillow before 6.2.0. When reading specially crafted invalid image files, the library can either allocate very large amounts of memory or take an extremely long period of time to process the image.
+
+Workarounds
+An issue was discovered in Pillow before 6.2.0. When reading specially crafted invalid image files, the library can either allocate very large amounts of memory or take an extremely long period of time to process the image.
+
+References
+https://nvd.nist.gov/vuln/detail/CVE-2021-27921
+
+For more information
+If you have any questions or comments about this advisory:
+
+Open an issue in example link to repo
+Email us at example email address
