@@ -1,0 +1,82 @@
+You can configure how GitHub uses the CodeQL analysis workflow to scan code written in compiled languages for vulnerabilities and errors.
+
+If you have write permissions to a repository, you can configure code scanning for that repository.
+
+Code scanning is available for all public repositories, and for private repositories owned by organizations where GitHub Advanced Security is enabled. For more information, see "About GitHub Advanced Security."
+
+In this article
+About the CodeQL analysis workflow and compiled languages
+About autobuild for CodeQL
+Adding build steps for a compiled language
+About the CodeQL analysis workflow and compiled languages
+You set up GitHub to run code scanning for your repository by adding a GitHub Actions workflow to the repository. For CodeQL code scanning, you add the CodeQL analysis workflow. For more information, see "Setting up code scanning for a repository."
+
+Typically, you don't need to edit the default workflow for code scanning. However, if required, you can edit the workflow to customize some of the settings. For example, you can edit GitHub's CodeQL analysis workflow to specify the frequency of scans, the languages or directories to scan, and what CodeQL code scanning looks for in your code. You might also need to edit the CodeQL analysis workflow if you use a specific set of commands to compile your code. For general information about configuring code scanning and editing workflow files, see "Configuring code scanning" and "Learn GitHub Actions."
+
+About autobuild for CodeQL
+Code scanning works by running queries against one or more databases. Each database contains a representation of all of the code in a single language in your repository. For the compiled languages C/C++, C#, and Java, the process of populating this database involves building the code and extracting data. CodeQL also runs a build for Go projects to set up the project. However, in contrast to the other compiled languages, all Go files in the repository are extracted, not just those that are built. Custom build commands are not supported for Go.
+
+For the supported compiled languages, you can use the autobuild action in the CodeQL analysis workflow to build your code. This avoids you having to specify explicit build commands for C/C++, C#, and Java.
+
+If your workflow uses a language matrix, autobuild attempts to build each of the compiled languages listed in the matrix. Without a matrix autobuild attempts to build the supported compiled language that has the most source files in the repository. With the exception of Go, analysis of other compiled languages in your repository will fail unless you supply explicit build commands.
+
+Note: If you use self-hosted runners for GitHub Actions, you may need to install additional software to use the autobuild process. Additionally, if your repository requires a specific version of a build tool, you may need to install it manually. For more information, see "Specifications for GitHub-hosted runners".
+
+C/C++
+Supported system type	System name
+Operating system	Windows, macOS, and Linux
+Build system	Windows: MSbuild and build scripts
+Linux and macOS: Autoconf, Make, CMake, qmake, Meson, Waf, SCons, Linux Kbuild, and build scripts
+The behavior of the autobuild step varies according to the operating system that the extraction runs on. On Windows, the autobuild step attempts to autodetect a suitable build method for C/C++ using the following approach:
+
+Invoke MSBuild.exe on the solution (.sln) or project (.vcxproj) file closest to the root. If autobuild detects multiple solution or project files at the same (shortest) depth from the top level directory, it will attempt to build all of them.
+Invoke a script that looks like a build script—build.bat, build.cmd, and build.exe (in that order).
+On Linux and macOS, the autobuild step reviews the files present in the repository to determine the build system used:
+
+Look for a build system in the root directory.
+If none are found, search subdirectories for a unique directory with a build system for C/C++.
+Run an appropriate command to configure the system.
+C#
+Supported system type	System name
+Operating system	Windows and Linux
+Build system	.NET and MSbuild, as well as build scripts
+The autobuild process attempts to autodetect a suitable build method for C# using the following approach:
+
+Invoke dotnet build on the solution (.sln) or project (.csproj) file closest to the root.
+Invoke MSbuild (Linux) or MSBuild.exe (Windows) on the solution or project file closest to the root. If autobuild detects multiple solution or project files at the same (shortest) depth from the top level directory, it will attempt to build all of them.
+Invoke a script that looks like a build script—build and build.sh (in that order, for Linux) or build.bat, build.cmd, and build.exe (in that order, for Windows).
+Java
+Supported system type	System name
+Operating system	Windows, macOS, and Linux (no restriction)
+Build system	Gradle, Maven and Ant
+The autobuild process tries to determine the build system for Java codebases by applying this strategy:
+
+Search for a build file in the root directory. Check for Gradle then Maven then Ant build files.
+Run the first build file found. If both Gradle and Maven files are present, the Gradle file is used.
+Otherwise, search for build files in direct subdirectories of the root directory. If only one subdirectory contains build files, run the first file identified in that subdirectory (using the same preference as for 1). If more than one subdirectory contains build files, report an error.
+Adding build steps for a compiled language
+If the C/C++, C#, or Java code in your repository has a non-standard build process, autobuild may fail. You will need to remove the autobuild step from the workflow, and manually add build steps. For information on how to edit the workflow file, see "Configuring code scanning."
+
+After removing the autobuild step, uncomment the run step and add build commands that are suitable for your repository. The workflow run step runs command-line programs using the operating system's shell. You can modify these commands and add more commands to customize the build process.
+
+- run: |
+  make bootstrap
+  make release
+For more information about the run keyword, see "Workflow syntax for GitHub Actions."
+
+If your repository contains multiple compiled languages, you can specify language-specific build commands. For example, if your repository contains C/C++, C# and Java, and autobuild correctly builds C/C++ and C# but fails to build Java, you could use the following configuration in your workflow, after the init step. This specifies build steps for Java while still using autobuild for C/C++ and C#:
+
+- if: matrix.language == 'cpp' || matrix.language == 'csharp' 
+  name: Autobuild
+  uses: github/codeql-action/autobuild@v1
+
+- if: matrix.language == 'java' 
+  name: Build Java
+  run: |
+    make bootstrap
+    make release
+For more information about the if conditional, see "Workflow syntax for GitHub Actions."
+
+For more tips and tricks about why autobuild won't build your code, see "Troubleshooting the CodeQL workflow."
+
+If you added manual build steps for compiled languages and code scanning is still not working on your repository, contact GitHub Support or GitHub Premium Support.
