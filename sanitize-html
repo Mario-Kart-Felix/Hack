@@ -1,0 +1,23 @@
+Upgrade sanitize-html to version 2.3.2 or later. For example:
+
+"dependencies": {
+  "sanitize-html": ">=2.3.2"
+}
+or…
+"devDependencies": {
+  "sanitize-html": ">=2.3.2"
+}
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2021-26540
+moderate severity
+Vulnerable versions: < 2.3.2
+Patched version: 2.3.2
+Apostrophe Technologies sanitize-html before 2.3.2 does not properly validate the hostnames set by the "allowedIframeHostnames" option when the "allowIframeRelativeUrls" is set to true, which allows attackers to bypass hostname whitelist for iframe element, related using an src value that starts with "/\example.com".
+
+CVE-2021-26539
+moderate severity
+Vulnerable versions: < 2.3.1
+Patched version: 2.3.1
+Apostrophe Technologies sanitize-html before 2.3.1 does not properly handle internationalized domain name (IDN) which could allow an attacker to bypass hostname whitelist validation set by the "allowedIframeHostnames" option.
