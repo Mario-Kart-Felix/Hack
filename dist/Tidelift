@@ -1,0 +1,109 @@
+Compatible languages and package files
+Tidelift is compatible with many different package manager ecosystems.
+
+We generate a bill of materials for your project with the same files used by package managers. A manifest file describes your application's direct requirements, while a lockfile snapshots exact versions and transitive dependencies at a moment in time. Tidelift can generate the most complete bill of materials if we have both files.
+
+Fully Compatible
+Ecosystem	Compatible Manifests	Compatible Lockfiles
+Ruby (RubyGems)	
+*.gemspec
+Gemfile
+Gemfile.lock
+Python (PyPi)	
+requirements.txt
+Pipfile
+Pipfile.lock
+JavaScript (npm)	
+package.json
+yarn.lock
+package-lock.json
+Golang (go)	
+go.mod
+PHP (Packagist)	
+composer.json
+composer.lock
+C# (NuGet)	
+*.csproj
+packages.lock.json
+Java (Maven)	
+pom.xml
+ivy.xml
+gradle-dependencies-q.txt (run gradle dependencies -q > gradle-dependencies-q.txt and upload gradle-dependencies-q.txt with that exact name)
+xml files from your .ivy2 directory
+maven-resolved-dependencies.txt (run mvn dependency:list -DoutputFile=maven-resolved-dependencies.txt and upload maven-resolved-dependencies.txt with that exact name). More information on how to use the plugin can be found in the Dependency Plugin Documentation .
+sbt-update-full.txt (run sbt 'show updateFull' > sbt-update-full.txt and upload sbt-update-full.txt with that exact name; note that the single quotes around 'show updateFull' are required)
+Rust (Cargo)	
+Cargo.toml
+Cargo.lock
+Beta Compatible
+We have beta compatibility for quite a few other package managers. If you try these and have feedback for us, please email support@tidelift.com.
+
+Note that this beta list is not yet subject to our full scope of support for paying subscribers. However, if you are a subscriber we'd love to extend our coverage to the package managers you care about.
+
+npm
+npm-shrinkwrap.json
+Note that package.json, package-lock.json, and yarn.lock are in the fully-supported list above
+RubyGems
+gems.rb
+gems.locked
+Note that *.gemspec, Gemfile, and Gemfile.lock are in the fully-supported list above
+PyPi
+setup.py
+req*.txt
+req*.pip
+requirements/*.pip
+Note that requirements.txt, Pipfile, and Pipfile.lock are in the fully-supported list above
+Maven
+build.gradle (sometimes we can get something from this, but rarely; it's better to upload gradle-dependencies-q.txt as noted in the fully-supported list above)
+Note that pom.xml, ivy.xml, gradle-dependencies-q.txt, .ivy2 cache xml files, and sbt updateFull output are in the fully-supported list above.
+NuGet
+packages.config
+Project.json
+Project.lock.json
+*.nuspec
+paket.lock
+Bower
+bower.json
+CPAN
+META.json
+META.yml
+CocoaPods
+Podfile
+Podfile.lock
+*.podspec
+Clojars
+project.clj
+Meteor
+versions.json
+CRAN
+DESCRIPTION
+Hex
+mix.exs
+mix.lock
+Swift
+Package.swift
+Pub
+pubspec.yaml
+pubspec.lock
+Carthage
+Cartfile
+Cartfile.private
+Cartfile.resolved
+Dub
+dub.json
+dub.sdl
+Julia
+REQUIRE
+Shards
+shard.yml
+shard.lock
+Elm
+elm-package.json
+elm_dependencies.json
+elm-stuff/exact-dependencies.json
+Haxelib
+haxelib.json
+Hackage
+*.cabal
+cabal.config
+Again, the list above is in beta; see the table at the top of the page for the fully-compatible list.
