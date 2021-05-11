@@ -1,0 +1,12 @@
+Project groups can be used to organize projects within the Tidelift Subscription. Groups could represent different business units or different application areas. Users can also be assigned to groups.
+
+Only organization administrators can create and manage groups for their organization. From Settings > Groups, administrators can create and delete groups, add and remove projects from groups, and add and remove users from groups.
+
+
+
+After setting up groups with your organization, you will notice the following benefits:
+
+Catalog tasks can be filtered by group to only show tasks that affect projects in a group
+By default, the catalog tasks page will be filtered to just show the groups that a user is in
+The projects page can be filtered by group
+Note: Groups are not used for enforcing different standards on different projects (eg. differing license policies). If you are trying to enforce different standards on different groups of projects, we recommend using multiple catalogs and having each project associated with the appropriate catalog.
