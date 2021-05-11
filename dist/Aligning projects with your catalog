@@ -1,0 +1,11 @@
+A catalog is at its most valuable when it's used by the software developers at your organization. This article covers how a catalog should be used and best practices for encouraging adoption.
+
+About catalog alignment
+The most common way to measure success with a catalog is to track alignment with the catalog. Your development team’s projects should be routinely checked to ensure that they are aligned with the catalog, meaning that all package releases in their project are also in the organization’s catalog.
+
+When you begin using Tidelift, you can get a benchmark alignment score for each project and work to bring those scores up to 100% over time. While this may be easier for smaller or newer projects, it may take longer to get legacy projects fully aligned with the catalog. After a certain period of time, we recommend blocking builds in your CI/CD pipeline if they are not aligned with the Tidelift catalog. 
+
+Checking alignment
+See Tracking projects and getting bill of materials for how to get a bill of materials and check alignment from the web app and from the command line.
+
+If you already have a CI/CD pipeline setup, it is straightforward to insert a Tidelift alignment check as a step in the pipeline. See our workflow integration docs, for examples on how to connect Tidelift into your CI/CD workflow.
