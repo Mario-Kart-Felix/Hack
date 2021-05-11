@@ -1,0 +1,205 @@
+
+Mario-Kart-Felix
+/
+hydra
+Template
+forked from facebookresearch/hydra
+Code
+Issues
+Pull requests
+Discussions
+Actions
+Projects
+Wiki
+Security
+1
+Insights
+Settings
+Overview
+Security policy
+Security advisories 0
+Dependabot alerts 1
+Code scanning alerts 0
+postcss
+ Open	GitHub opened this alert 15 hours ago
+ Dependabot cannot update postcss to a non-vulnerable version
+The latest possible version that can be installed is 7.0.35 because of the following conflicting dependencies:
+
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on autoprefixer@9.8.6
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.1 via a transitive dependency on css-declaration-sorter@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano-util-raw-cache@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano-preset-default@4.0.7
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.27 via a transitive dependency on postcss-calc@7.0.4
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-colormin@4.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-convert-values@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-comments@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-duplicates@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-empty@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-overridden@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-longhand@4.0.11
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on stylehacks@4.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-rules@4.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-font-values@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-gradients@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-params@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-selectors@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-charset@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-display-values@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-positions@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-repeat-style@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-string@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-timing-functions@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-unicode@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-url@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-whitespace@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-ordered-values@4.1.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-initial@4.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-transforms@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-svgo@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-unique-selectors@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-unused@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-idents@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-idents@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-zindex@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on @docusaurus/cssnano-preset@2.0.0-alpha.70
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-combine-duplicated-selectors@9.4.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.27 via a transitive dependency on postcss-sort-media-queries@1.31.21
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on icss-utils@4.1.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on css-loader@3.6.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-modules-extract-imports@2.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on postcss-modules-local-by-default@3.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on postcss-modules-scope@2.2.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on postcss-modules-values@3.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano@4.1.10
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-loader@3.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on css-blank-pseudo@0.1.4
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on css-has-pseudo@0.10.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on css-prefers-color-scheme@3.1.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.17 via a transitive dependency on postcss-preset-env@6.7.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-attribute-case-insensitive@4.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-functional-notation@2.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-color-gray@5.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on postcss-color-hex-alpha@5.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-mod-function@3.0.3
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-rebeccapurple@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on postcss-custom-media@7.0.8
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.17 via a transitive dependency on postcss-custom-properties@8.0.11
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-custom-selectors@5.1.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-dir-pseudo-class@5.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-double-position-gradients@1.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-env-function@2.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-focus-visible@4.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-focus-within@3.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-font-variant@4.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-gap-properties@2.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-image-set-function@3.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-initial@3.0.2
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-lab-function@2.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-logical@3.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-media-minmax@4.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-nesting@7.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-overflow-shorthand@2.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-page-break@2.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-place@4.0.1
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-pseudo-class-any-link@6.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-replace-overflow-wrap@3.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-selector-matches@4.0.0
+@docusaurus/core@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-selector-not@4.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on autoprefixer@9.8.6
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.1 via a transitive dependency on css-declaration-sorter@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano-util-raw-cache@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano-preset-default@4.0.7
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.27 via a transitive dependency on postcss-calc@7.0.4
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-colormin@4.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-convert-values@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-comments@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-duplicates@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-empty@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-overridden@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-longhand@4.0.11
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on stylehacks@4.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-rules@4.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-font-values@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-gradients@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-params@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-minify-selectors@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-charset@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-display-values@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-positions@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-repeat-style@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-string@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-timing-functions@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-unicode@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-url@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-normalize-whitespace@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-ordered-values@4.1.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-initial@4.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-transforms@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-svgo@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-unique-selectors@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-discard-unused@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-merge-idents@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-reduce-idents@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-zindex@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on @docusaurus/cssnano-preset@2.0.0-alpha.70
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-combine-duplicated-selectors@9.4.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.27 via a transitive dependency on postcss-sort-media-queries@1.31.21
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on icss-utils@4.1.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on css-loader@3.6.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-modules-extract-imports@2.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.32 via a transitive dependency on postcss-modules-local-by-default@3.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on postcss-modules-scope@2.2.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on postcss-modules-values@3.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on cssnano@4.1.10
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.0 via a transitive dependency on postcss-loader@3.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on css-blank-pseudo@0.1.4
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.6 via a transitive dependency on css-has-pseudo@0.10.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on css-prefers-color-scheme@3.1.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.17 via a transitive dependency on postcss-preset-env@6.7.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-attribute-case-insensitive@4.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-functional-notation@2.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-color-gray@5.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on postcss-color-hex-alpha@5.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-mod-function@3.0.3
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-color-rebeccapurple@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.14 via a transitive dependency on postcss-custom-media@7.0.8
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.17 via a transitive dependency on postcss-custom-properties@8.0.11
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-custom-selectors@5.1.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-dir-pseudo-class@5.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.5 via a transitive dependency on postcss-double-position-gradients@1.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-env-function@2.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-focus-visible@4.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-focus-within@3.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-font-variant@4.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-gap-properties@2.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-image-set-function@3.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-initial@3.0.2
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-lab-function@2.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-logical@3.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-media-minmax@4.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-nesting@7.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-overflow-shorthand@2.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-page-break@2.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-place@4.0.1
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-pseudo-class-any-link@6.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-replace-overflow-wrap@3.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-selector-matches@4.0.0
+@docusaurus/preset-classic@2.0.0-alpha.70 requires postcss@^7.0.2 via a transitive dependency on postcss-selector-not@4.0.0
+The earliest fixed version is 8.2.10.
+
+View logs or learn more about troubleshooting Dependabot errors.
+
+1 postcss vulnerability found in website/yarn.lock 15 hours ago
+Remediation
+Upgrade postcss to version 8.2.10 or later. For example:
+
+postcss@^8.2.10:
+  version "8.2.10"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2021-23368
+moderate severity
+Vulnerable versions: >= 7.0.0, < 8.2.10
+Patched version: 8.2.10
+The package postcss from 7.0.0 and before 8.2.10 are vulnerable to Regular Expression Denial of Service (ReDoS) during source map parsing.
