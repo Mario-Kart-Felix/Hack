@@ -1,0 +1,13 @@
+Remediation
+Upgrade lodash to version 4.17.21 or later. For example:
+
+lodash@^4.17.21:
+  version "4.17.21"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2021-23337
+high severity
+Vulnerable versions: < 4.17.21
+Patched version: 4.17.21
+lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.
