@@ -1,0 +1,18 @@
+Remediation
+Upgrade hosted-git-info to version 2.8.9 or later. For example:
+
+"dependencies": {
+  "hosted-git-info": ">=2.8.9"
+}
+or…
+"devDependencies": {
+  "hosted-git-info": ">=2.8.9"
+}
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2021-23362
+moderate severity
+Vulnerable versions: < 2.8.9
+Patched version: 2.8.9
+The npm package hosted-git-info before 3.0.8 are vulnerable to Regular Expression Denial of Service (ReDoS) via regular expression shortcutMatch in the fromUrl function in index.js. The affected regular expression exhibits polynomial worst-case time complexity
