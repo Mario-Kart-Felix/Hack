@@ -1,0 +1,15 @@
+Dependency chains can answer the questions, "Is this dependency direct or transitive?" and "How did I bring this dependency into my code?".
+
+Supported ecosystems
+The Tidelift CLI leverages ecosystem specific tools to discover the source of dependencies in your project's bill of materials. The following ecosystems are currently supported, with more to come soon.
+Java  - Maven or Gradle will be used depending upon your chosen toolset.
+Javascript  - Both npm and Yarn will be supported soon.
+With these ecosystem-native tools in place, you can use the tidelift alignment command to process a dependency chain:
+
+tidelift alignment
+This command will generate a bill of materials for a project and check its alignment with your catalog. When an alignment fails, it will give you a list of packages that are out of alignment, as well as a url to see more details. From this
+
+
+
+By clicking into each see dependency chains link, you can see all of the direct dependencies that are bringing in deeper level transitive dependencies, and the chain structure.
+
