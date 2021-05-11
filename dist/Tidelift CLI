@@ -1,0 +1,55 @@
+This article covers how to begin tracking Projects with the Tidelift Subscription from the web application and from Tidelift CLI. You will learn how to create a new project, get project API keys, get a bill of materials, and check alignment of that project with its catalog of approved open source.
+
+Using Tidelift CLI is strongly recommended for this step. Some features and ecosystems are only supported through Tidelift CLI.
+
+Pre-requisites
+Before starting this guide, you need:
+
+An account and access to the Tidelift web application
+(CLI users only) A Tidelift User Key (from Settings > API Keys)
+(CLI users only) Tidelift CLI installed on your machine
+Getting a new bill of materials for a new project
+You will want to track each repository or application that contains open source as a project within Tidelift.
+
+From the Tidelift web app
+From Tidelift CLI
+Select Projects
+Select Track New Project
+Name the Project you wish to track and Save
+Locate the package files you wish to get a bill of materials from (or use sample files) and select upload.
+Ensure you are authenticated to use Tidelift CLI with your User API Key.
+If you are ready to upload package files and get a bill of materials, use tidelift init --catalog=[catalog-name] [--skip-dot-tidelift/--force] PROJECT_NAME in the root directory of the project. You will need to define the project name, organization, and associated catalog. Your project and bill of materials will be created, and an alignment will automatically be calculated. You can skip the rest of this help article.
+Note: this is only for a brand new project.
+If you are not ready to upload package files or save a bill of materials, use  tidelift projects new in the root directory of the project. You will need to define the project name, organization, and associated catalog. This will not generate a project api key, which is required to upload a bill of materials.
+Getting an updated bill of materials for an existing project 
+1. Generating a Project Key (for use in CLI or CI)
+If you have already created a project but did not use tidelift init, you can later upload a bill of materials (tidelift alignment save), but you will need to generate a project-specific API key. These keys are scoped to a project and necessary to use (as opposed to your User Key) because they are often integrated into a CI set-up.
+
+From the Tidelift web app
+From Tidelift CLI
+From Projects, select the project and select project actions and settings.
+Select Get Project Key.
+You will see your list of keys and can access the Token and Authorization information for each project.
+These keys can be set as the TIDELIFT_API_KEY environment variable when running tidelift alignment commands from Tidelift CLI or your CI/CD system
+After creating a project (see above), use tidelift projects new-key in the root project directory. This will automatically create a new key and update your TIDELIFT_API_KEY environment variable. 
+Ensure the key is saved to a TIDELIFT_API_KEY environment variable.
+3. Upload new package files to get a bill of materials and check alignment
+For each project, you can upload package files to get a bill of materials that lists all of the open source packages used. We automatically calculate the alignment of this bill of materials with the catalog. 100% alignment indicates that a project is only using open source that is approved for use in the catalog.
+
+Using Tidelift CLI is strongly recommended for this step. Some features and ecosystems are only supported through Tidelift CLI.
+
+From the Tidelift web app
+From Tidelift CLI (recommended)
+From Projects, select the project and select project actions and settings
+Select Upload FIles
+Upload the supported package files (both manifest and lockfile) from the project directory.
+Ensure Tidelift project and project API key has been created (see steps above)
+Run tidelift alignment save from the project's root directory. Tidelift CLI will automatically identify the correct files (both manifest and lockfile).
+
+Note: If you do not need to save the bill of materials in the Tidelift web app, you can use tidelift alignment. This does not require a project API key.
+What next?
+At this point, you should have a bill of materials for a project and know whether or not it's in alignment with the catalog. Depending on your goals, you may choose to do any number of things:
+
+If you are a catalog admin and the project is not in alignment with the catalog, you can do this by selecting Add Packages from the Tidelift web application.
+If you are a developer and the project is not in alignment with the catalog, you may want to request for these packages to be added to the catalog. You can do this through the Tidelift web application or by using tidelift request --all from the CLI. Alternatively, there may be guidance from your catalog admin on how to bring this project into alignment (eg. such as by switching to an approved release).
+If you are trying to get more information about the project's bill of materials, you can select Bill of materials in the left-hand navigation to see and export a complete bill of materials and license data for this project.
