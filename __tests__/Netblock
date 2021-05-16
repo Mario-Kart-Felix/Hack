@@ -1,0 +1,14 @@
+Using the answer function since this is too long for comments.
+
+Choose the right data types
+
+ip has a defined display width of 255, while highest IP number can be represented as a 10 digit unsigned integer value.
+Mac address has always 17 chars, but is defined as VARCHAR(255) instead of fixed length CHAR(17)
+Are hostname and domain name related? Both hostname and domain name are defined as VARCHAR(255). Max length of hostname is 63 characters, and max. length of fully qualified domain name is 255 characters.
+Avoid redundant information
+
+Storing redundant information not only takes up additional storage space, but also makes life harder when it comes to updating data.
+
+E.g. room is defined in 2 different tables: If they are the same, remove one - if they are different, use different names (e.g. by prefixing the column name).
+172.58.96.128/25 Netblock Details - T-Mobile USA, Inc. - IPinfo.io
+... 172.58.96.193 · 172.58.96.194 · 172.58.96.195 · 172.58.96.196 · 172.58. 96.197 · 172.58.96.198 · 172.58.96.199 · 172.58.96.200 · 172.58.96.201 · 172.58
