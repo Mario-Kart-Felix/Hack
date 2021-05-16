@@ -1,0 +1,25 @@
+name: Publish nightly
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org/
+      - run: yarn --frozen-lockfile
+
+      - name: Publish to npm
+        run: |
+          npm whoami
+          bash $GITHUB_WORKSPACE/.github/scripts/bump-nightly-version.sh
+          npm publish --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          CI: true
