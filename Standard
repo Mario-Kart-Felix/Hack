@@ -1,0 +1,19 @@
+The Counter class
+from collections import defaultdict
+
+words = "apple banana apple strawberry banana lemon"
+words = words.split()
+result = defaultdict(int)
+for word in words:
+    result[word] += 1
+
+print result
+Groupby oneliner:
+
+from itertools import groupby
+
+words = "apple banana apple strawberry banana lemon"
+words = words.split()
+
+result = dict((key, len(list(group))) for key, group in groupby(sorted(words)))
+print result
