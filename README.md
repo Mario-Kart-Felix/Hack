@@ -1,0 +1,11 @@
+# HackGoogle has been publishing monthly security bulletins since August of 2015. These security bulletins contain a list of disclosed security vulnerabilities that have been fixed which affect the Android framework, Linux kernel, and other closed-source vendor components. Every vulnerability in the bulletins was either discovered by Google or disclosed to the company. Every vulnerability listed has a Common Vulnerabilities and Exposures (CVE) number, along with associated references, the type of vulnerability, a severity assessment, and the AOSP version affected (if applicable). But despite the seemingly simplistic process behind how Android security patches work, there’s actually a somewhat complicated back-and-forth behind the scenes that allows for your phone to get monthly or (hopefully) near-monthly patches.
+
+What actually makes a security patch?
+You may have noticed that every month, there are actually two security patch levels. The format of these patches is either YYYY-MM-01 or YYYY-MM-05. While the YYYY and MM obviously represent the year and month respectively, the “01” and “05” confusingly does not actually signify the day of the month in which that security patch level was released. Instead, the 01 and 05 are actually two different security patch levels released on the same day every month – the patch level with 01 at the end contains fixes to the Android framework but not vendor patches or upstream Linux kernel patches. Vendor patches, as we defined above, refer to fixes to closed-source components such as drivers for Wi-Fi and Bluetooth. The security patch level signified by -05 contains these vendor patches as well as patches in the Linux kernel. Take a look at the table below which may help in understanding.
+
+Monthly Security Patch Level	2019-04-01	2019-04-05
+Contains April Framework Patches	Yes	Yes
+Contains April Vendor + Kernel Patches	No	Yes
+Contains March Framework Patches	Yes	Yes
+Contains March Vendor + Kernel Patches	Yes	Yes
+Of course, some OEMs may opt to roll their own patches and updates into security updates as well. Most OEMs have their own take on Android, so it only makes sense that you may have, for example, a vulnerability on a Samsung phone that doesn’t exist on a Huawei. A lot of these OEMs also publish their own security bulletins.
