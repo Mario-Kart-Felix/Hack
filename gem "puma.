@@ -1,0 +1,35 @@
+Remediation
+Upgrade puma to version 4.3.8 or later. For example:
+
+gem "puma", ">= 4.3.8"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+GHSA-q28m-8xjw-8vr5
+high severity
+Vulnerable versions: <= 4.3.7
+Patched version: 4.3.8
+This vulnerability is related to CVE-2019-16770.
+
+Impact
+The fix for CVE-2019-16770 was incomplete. The original fix only protected existing connections that had already been accepted from having their requests starved by greedy persistent-connections saturating all threads in the same process. However, new connections may still be starved by greedy persistent-connections saturating all threads in all processes in the cluster.
+
+A puma server which received more concurrent keep-alive connections than the server had threads in its threadpool would service only a subset of connections, denying service to the unserved connections.
+
+Patches
+This problem has been fixed in puma 4.3.8 and 5.3.1.
+
+Workarounds
+Setting queue_requests false also fixes the issue. This is not advised when using puma without a reverse proxy, such as nginx or apache, because you will open yourself to slow client attacks (e.g. slowloris).
+
+The fix is very small. A git patch is available here for those using unsupported versions of Puma.
+
+For more information
+If you have any questions or comments about this advisory:
+
+Open an issue in Puma.
+To report problems with this fix or to report another vulnerability, see our security policy.
+Acknowledgements
+Thank you to @MSP-Greg, @wjordan and @evanphx for their review on this issue.
+
+Thank you to @ioquatix for providing a modified fork of wrk which made debugging this issue much easier.
