@@ -1,0 +1,98 @@
+
+
+#Authentication
+Your API token is used to authenticate you with our API, and can be provided either as an HTTP Basic Auth username, a bearer token, or alternatively as a token URL parameter.
+
+# With Basic Auth
+$ curl -u $TOKEN: ipinfo.io
+
+# With Bearer token
+$ curl -H "Authorization: Bearer $TOKEN" ipinfo.io
+
+# With token query parameter
+$ curl ipinfo.io?token=$TOKEN
+It's also possible to use the API without authentication in a more limited capacity.
+
+JSON Response
+We try to automatically detect when someone wants to call our API versus view our website, and send back the appropriate JSON response rather than HTML. We do this based on the user agent for known popular programming languages, tools and frameworks. There are a couple of other ways to force a JSON response from when it doesn't happen automatically though. One is to add /json to the URL, and the other is to set an Accept header to application/json:
+
+# Ensure we really get JSON, and not the IPinfo homepage HTML
+$ curl ipinfo.io/json
+$ curl -H "Accept: application/json" ipinfo.io
+IP Address Parameter
+The API supports passing in a single IPv4 or IPv6 IP address. Alternatively, if you do not pass in any IP address we'll return details for the calling address. This allows you to lookup your own (or a visitor to your site) IP address details without knowing the IP address in advance.
+
+# Get details for 8.8.8.8
+$ curl ipinfo.io/8.8.8.8?token=$TOKEN
+
+# Get details for 2001:4860:4860::8888
+$ curl ipinfo.io/2001:4860:4860::8888?token=$TOKEN
+
+# Get details for your own IP address, which'll be included in the response
+$ curl ipinfo.io?token=$TOKEN
+HTTPS/ SSL
+Our API is available over a secure HTTPS connection for all users. Simply add https:// to the request URLs to make the requests secure.
+
+# Get details for your own IP address over HTTPS
+$ curl https://ipinfo.io?token=$TOKEN
+Rate Limits
+Free usage of our API is limited to 50,000 API requests per month. If you exceed that limit we'll return a 429 HTTP status code to you.
+
+Paid plans come with higher monthly limits, and configurable alerts.
+
+Filtering Responses
+You can filter the API response down to specific fields or objects by adding the field or object name to the URL. In the case of a field you'll get it returned in plaintext, and an object will get returned as JSON.
+
+# Get json the org field as plaintext
+$ curl ipinfo.io/8.8.8.8/org?token=$TOKEN
+AS15169 Google Inc.
+
+# Get just the city as plaintext
+$ curl ipinfo.io/8.8.8.8/city?token=$TOKEN
+Mountain View
+
+# Get country ISO code as plaintext
+$ curl ipinfo.io/8.8.8.8/country?token=$TOKEN
+US
+JSONP/ CORS Requests
+JSONP and CORS are supported, allowing you to use ipinfo.io entirely in client-side code. For JSONP you just need to specify the callback parameter, e.g. http://ipinfo.io/?callback=callback&token=$TOKEN.
+
+Request visitor data using Fetch API (Promise)
+
+fetch("https://ipinfo.io/json?token=$TOKEN").then(
+  (response) => response.json()
+).then(
+  (jsonResponse) => console.log(jsonResponse.ip, jsonResponse.country)
+)
+Request visitor data using Fetch API (Async/Await)
+
+const request = await fetch("https://ipinfo.io/json?token=$TOKEN")
+const json = await request.json()
+
+console.log(jsonResponse.ip, jsonResponse.country)
+Request visitor data using JSONP
+
+<script>
+  function recordData (data) {
+    console.log(data.ip, data.country)
+  }
+</script>
+<script src="https://ipinfo.io/json?callback=recordData"></script>
+IPinfo - Comprehensive IP address data, IP geolocation API and database
+
+INFORMATION
+IP address information
+Global ASNs
+Hosted Domains by ASNs
+IP Ranges
+My IP address
+COMPANY
+About
+Blog
+Careers
+Contact Sales
+Contact Support
+Copyright © 2021 IPinfo | Terms & Conditions | Privacy Policy
+
+ 
+ 
