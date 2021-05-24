@@ -9,8 +9,8 @@ See pre-commit for instructions
 
 Sample .pre-commit-config.yaml:
 
--   repo: https://github.com/asottile/pyupgrade
-    rev: v2.18.1
+-   repo: https://github.com/Mario-Kart-Felix/pyupgrade
+    rev: v4.18.1
     hooks:
     -   id: pyupgrade
 Implemented features
