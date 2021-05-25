@@ -1,0 +1,34 @@
+I think your best bet is using the --frozen-lockfile flag with yarn install.
+
+Docs:
+If you need reproducible dependencies, which is usually the case with the continuous integration systems, you should pass --frozen-lockfile flag.
+
+Also
+
+Don’t generate a yarn.lock lockfile and fail if an update is needed.
+
+This way if someone tries to push changes to package.json, say upgrade react from ^16.8.0 to ^16.10.0, without updating the yarn.lock file. Then it will error out in the CI like below.
+
+> yarn install --frozen-lockfile
+error Your lockfile needs to be updated, but yarn was run with `--frozen-lockfile`.
+To address your comment:
+
+I think that with yarn install the lock gets updated too often and the file loses its point since it actually does not lock versions. Or am I using the wrong commands?
+
+Yarn/npm is just doing what you tell it to. If you set the version in your package.json to "react": "16.8.0" it will never update the yarn.lock but when using any of the npm ranges like the Caret (i.e. "react": "^16.8.0"), yarn/npm will resolve to the highest/newest version that satisfies the range you specified. You have all the power!
+
+Update
+I found a small edge case. If you are running yarn add in your ci, such as for a ci only dependency, it will update the lock file and do an install for all dependencies. For example....
+
+# Add ci dep
+yarn add codecov
+
+# Install all deps from yarn.lock
+yarn install --frozen-lockfile
+This will not error like you might expect. Instead, add the --frozen-lockfile to yarn add command like this...
+
+# Add ci dep
+yarn add codecov --frozen-lockfile
+
+# Install all deps from yarn.lock
+yarn install --frozen-lockfile
