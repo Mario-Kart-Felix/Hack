@@ -1,0 +1,8 @@
+Ping to: 172.58.97.52 (172.58.97.52)
+PING 172.58.97.52 (172.58.97.52) 56(84) bytes of data.
+
+--- 172.58.97.52 ping statistics ---
+4 packets transmitted, 0 received, 100% packet loss, time 3000ms
+
+
+done ...
