@@ -1,0 +1,96 @@
+(Arithmetic) Integer Overflows
+An integer overflow occurs when you attempt to store inside an integer variable a value that is larger than the maximum value the variable can hold. The C standard defines this situation as undefined behavior (meaning that anything might happen). In practice, this usually translates to a wrap of the value if an unsigned integer was used and a change of the sign and value if a signed integer was used.
+
+Integer overflows are the consequence of “wild” increments/multiplications, generally due to a lack of validation of the variables involved. As an example, take a look at the following code (taken from a vulnerable path that affected the OpenSolaris kernel;6 the code is condensed here to improve readability):
+
+static int64_t
+
+kaioc(long a0, long a1, long a2, long a3, long a4, long a5)
+
+{
+
+[…]
+
+ switch ((int)a0 & ~AIO_POLL_BIT) {
+
+[…]
+
+ case AIOSUSPEND:
+
+ error = aiosuspend((void *)a1, (int)a2, (timespec_t *)a3, [1]
+
+ (int)a4, &rval, AIO_64);
+
+ break;
+
+[…]
+
+/*ARGSUSED*/
+
+static int
+
+aiosuspend(void *aiocb, int nent, struct timespec *timout, int flag, long *rval, int run_mode)
+
+{
+
+[…]
+
+ size_t ssize;
+
+[…]
+
+ aiop = curproc->p_aio;
+
+ if (aiop == NULL || nent <= 0) [2]
+
+ return (EINVAL);
+
+ if (model == DATAMODEL_NATIVE)
+
+ ssize = (sizeof (aiocb_t *) * nent);
+
+ else
+
+ ssize = (sizeof (caddr32_t) * nent); [3]
+
+[…]
+
+ cbplist = kmem_alloc(ssize, KM_NOSLEEP) [4]
+
+ if (cbplist == NULL)
+
+ return (ENOMEM);
+
+ if (copyin(aiocb, cbplist, ssize)) {
+
+ error = EFAULT;
+
+ goto done;
+
+ }
+
+[…]
+
+ if (aiop->aio_doneq) {
+
+ if (model == DATAMODEL_NATIVE)
+
+ ucbp = (aiocb_t **)cbplist;
+
+ else
+
+ ucbp32 = (caddr32_t *)cbplist;
+
+[…]
+
+ for (i = 0; i < nent; i++) { [5]
+
+ if (model == DATAMODEL_NATIVE) {
+
+ if ((cbp = *ucbp++) == NULL)
+
+In the preceding code, kaioc() is a system call of the OpenSolaris kernel that a user can call without any specific privileges to manage asynchronous I/O. If the command passed to the system call (as the first parameter, a0) is AIOSUSPEND [1], the aiosuspend() function is called, passing as parameters the other parameters passed to kaioc(). At [2] the nent variable is not sanitized enough; in fact, any value above 0x3FFFFFFF (which is still a positive value that passes the check at [2]), once used in the multiplication at [3], will make ssize (declared as a size_t, so either 32 bits or 64 bits wide, depending on the model) overflow and, therefore, wrap. Note that this will happen only on 32-bit systems since nent is explicitly a 32-bit value (it is obviously impossible to overflow a 64-bit positive integer by multiplying a small number, as, for example, at [3], by the highest positive 32-bit integer). Seeing this in code form might be helpful; the following is a 32-bit scenario:
+
+In the preceding code, the integer value is cropped, which translates to a loss of information (the discarded bits). ssize is then used at [4] as a parameter to kmem_alloc(). As a result, much less space is allocated than what the nent variable initially dictated.
+
+This is a typical scenario in integer overflow issues and it usually leads to other vulnerabilities, such as heap overflows, if later in the code the original value is used as a loop guard to populate the (now too small) allocated space. An example of this can be seen at [5], even if in this snippet of code nothing is written to the buffer and “only” memory outside it is referenced. Notwithstanding this, this is a very good example of the type of code path you should hunt for in case of an integer overflow.
