@@ -1,0 +1,10 @@
+This is just a lame site doing basic checks (ping, traceroute, whois, geo IP lookup) on some IP you entered in the search form and presents all of that in a scary looking webpage, I definitely wouldn't call that a "security tool", it's more of a toy for script kiddies.
+
+They for some reason assume that you're using a proxy, they can either guess that based on the presence of a Forwarded or X-Forwarded-For header or just because your IP is in some outdated open proxy database - you probably have a dynamic IP and happened to be allocated the IP of someone else who deliberately ran an open proxy or got compromised.
+
+Just forget that horror, here are some (real) tools if you are worried about the security of your computer :
+
+http://icanhazip.com/ - to get the real IP of the host requesting the page (this will be the proxy's IP if you're using one)
+http://nmap.org/ - port scanner, run this from a remote host and point it at your IP to scan all open ports on your computer
+http://mxtoolbox.com/diagnostic.aspx - open mail relay test, to see if a badly configured mail server is running on your computer and can be abused to send spam
+http://www.webmastify.com/resources/proxy/ - open HTTP proxy test, I've not used it myself so I don't know if it's reliable, I prefer to test manually using telnet
