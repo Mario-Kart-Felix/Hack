@@ -1,0 +1,106 @@
+TC Pump Assumed BTC
+Coin Date Pumped? weight invested gain gain gained
+wt q = Q×wt pg ag = pg/2 q×ag
+BVB Nov 14 TRUE 0.30 0.11 283% 142% 0.16
+CON Nov 16 TRUE 0.44 0.16 33% 17% 0.03
+FLAX Nov 10 TRUE 0.58 0.21 135% 67% 0.14
+MAGN Nov 13 TRUE 0.37 0.14 70% 35% 0.05
+MAGN Dec 16 TRUE 0.39 0.14 85% 43% 0.06
+OSC Nov 13 TRUE 0.65 0.24 297% 148% 0.36
+OSC Nov 25 TRUE 0.52 0.19 100% 50% 0.10
+SOON Nov 01 TRUE 0.58 0.21 10% 5% 0.01
+UMO Nov 15 TRUE 0.55 0.20 60% 30% 0.06
+1.61 0.96
+Table 4: Purchased coins based on pump likelihood predicted by RF1. Only
+coins with predicted pump likelihood of greater than 0.3 are purchased.
+Investment weight equals pump likelihood. Q = 0.37, the average of total
+transaction volume in a pump-and-dump event in Cryptopia. Only transaction
+volume where the buyer is the aggressor is considered.
+Table 3 displays the confusion matrix of the model pre-
+diction with the test sample. The model suggests us to pur-
+chase 9 coins in total, all of which are ultimately pumped.
+Table 4 lists those 9 coins, their respective investment weight
+and assumed profit. The return on the investment amounts
+to 60% (2.61/4.38) over the test sample period of two and
+a half months. Note that the effect of transaction fees (0.2%
+on Cryptopia) on the investment profitability is negligible.
+The result of the final test is very similar to that with both
+the training sample and the validation sample when the same
+combination of model (RF1) and threshold (0.3) is applied
+(Figure 16), confirming the model’s robustness.
+5.6 Caveats and Improvement Potential
+Data: Upon availability, order book data, tick-by-tick data
+before a pump and traders’ account information can also be
+included as features.
+Modelling method: Random forest with unsupervised
+anomaly detection has the potential to improve the model
+performance. In addition, other classification (e.g. k-NN) and
+regression (e.g. ridge) models are worth considering.
+Additional considerations: Regarding investment weights,
+one may consider coin price increase potential (based on e.g.
+historical returns) in combination with coin pump likelihood.
+One must beware that in liquid exchanges, the trading strategy
+only applies to small retail investment, since big purchase
+orders prior to a pump can move the market, such that pump
+organizers may cancel the pump or switch the coin last-minute.
+Also worth factoring in is the market risk (e.g. security risk,
+legal risk) associated with the nascent crypto-market.
+6 Related Work
+Over the past year, a handful of studies researching cryptocur-
+rency pump-and-dump activities have been conducted, no-
+tably Kamps et al. [20] , Li et al. [23] and Hamrick et al. [18].
+Our work differs from the aforementioned studies in terms of
+motivation, methodology, data, and contribution. We aim for
+prospective prediction as opposed to retrospective investiga-
+tion of pump-and-dump activities. We use a homogeneous set
+of data that only includes clearly announced pump-and-dump
+events on Telegram.22 Regarding the sample period, our data
+cover a recent time span of June 17, 2018 to February 26, 2019
+(Table 5).
+Our paper is also closely linked to literature on market ma-
+nipulation in non-cryptocurrency contexts. Lin [24] explains
+potential damage of various manipulation methods including
+pump-and-dump, front running, cornering and mass misinfor-
+mation, and argues for swift regulatory action against those
+threats. Austin [3] calls for authorities’ demonstration of their
+ability to effectively deter market manipulation such as pump-
+and-dump in exchanges for small-capped companies, in order
+to recover investors’ confidence in trading in those markets,
+which would consequently foster economic growth.
+Our paper is further related to research on crypto trading.
+Gandal et al. [17] demonstrate that the unprecedented spike in
+the USD-BTC exchange rate in late 2013 was possibly caused
+by price manipulation. Makarov et al. [25] probe arbitrage
+opportunities in crypto markets. Aune et al. [2] highlight po-
+tential manipulation in the blockchain market resulting from
+the exposure of the footprint of a transaction after its broad-
+cast and before its validation in a blockchain, and proposes a
+cryptographic approach for solving the information leakage
+problems in distributed ledgers.
+Our paper is also akin to existing literature on cryptocur-
+rencies’ market movements. The majority of related literature
+still orients its focus on Bitcoin. Many scholars use GARCH
+models to fit the time series of Bitcoin price. Among them,
+Dyhrberg et al. [13] explore the financial asset capabilities
+of Bitcoin and suggests categorizing Bitcoin as something
+between gold and US Dollar on a spectrum from pure medium
+of exchange to pure store of value; Bouoiyour et al. [7] argue
+that Bitcoin is still immature and remains reactive to nega-
+tive rather than positive news at the time of their writing; 2
+years later, Conrad et al. [10] present the opposite finding
+that negative press does not explain the volatility of Bitcoin;
+Dyhrberg [14] demonstrates that bitcoin can be used to hedge
+against stocks; Katsiampa [21] emphasizes modelling accu-
+racy and recommends the AR-CGARCH model for price
+retro-fitting. Bariviera et al. [4] compute the Hurst exponent
+by means of the Detrended Fluctuation Analysis method and
+conclude that the market liquidity does not affect the level of
+long-range dependence. Corbet et al. [11] demonstrate that
+Bitcoin shows characteristics of an speculative asset rather
+than a currency also with the presence of futures trading in
+Bitcoin.
+Among the few research studies that also look into the finan-
+cial characteristics of other cryptocurrencies, Fry et al. [16]
+22As suggested earlier, all the coin announcements we found on Discord
+overlap with our Telegram data
+1622 28th USENIX Security Symposium USENIX Association
