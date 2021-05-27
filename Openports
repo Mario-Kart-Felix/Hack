@@ -1,0 +1,27 @@
+
+Status	Port	Name	Result	Time (ms)
+ 	21	ftp	Refused (RST)	0
+ 	22	ssh	Refused (RST)	0
+ 	23	telnet	Refused (RST)	0
+ 	25	smtp	Refused (RST)	0
+ 	53	dns	Refused (RST)	0
+ 	80	http	Refused (RST)	0
+ 	110	pop3	Refused (RST)	0
+ 	111	portmapper, rpcbind	Refused (RST)	0
+ 	135	Microsoft RPC services	Refused (RST)	0
+ 	139	netbios	Refused (RST)	0
+ 	143	imap	Refused (RST)	0
+ 	389	ldap	Refused (RST)	0
+ 	443	https	Refused (RST)	0
+ 	445	SMB directly over IP	Refused (RST)	0
+ 	587	msa-outlook	Refused (RST)	0
+ 	1025	IIS, NFS, or listener RFS remote_file_sharing	Refused (RST)	0
+ 	1352	lotus notes	Refused (RST)	0
+ 	1433	sql server	Refused (RST)	0
+ 	1723	Point-to-point tunnelling protocol	Refused (RST)	0
+ 	3306	my sql	Refused (RST)	0
+ 	3389	remote desktop	Refused (RST)	0
+ 	5060	Session Initiation Protocol (SIP)	Refused (RST)	0
+ 	5900	Virtual Network Computer display 0	Refused (RST)	0
+ 	6001	X Window server	Refused (RST)	0
+ 	8080	webcache
