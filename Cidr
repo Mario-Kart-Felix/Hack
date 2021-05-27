@@ -1,0 +1,84 @@
+
+
+1.  Lookup results for 172.58.97.52 from  WHOIS.ARIN.NET  Server:
+NetRange:       172.32.0.0 - 172.63.255.255
+CIDR:           172.32.0.0/11
+NetName:        TMO9
+NetHandle:      NET-172-32-0-0-1
+Parent:         NET172 (NET-172-0-0-0-0)
+NetType:        Direct Allocation
+OriginAS:       AS21928
+Organization:   T-Mobile USA, Inc. (TMOBI)
+RegDate:        2012-09-18
+Updated:        2020-11-18
+Comment:        Geofeed https://raw.githubusercontent.com/tmobile/tmus-geofeed/main/tmus-geo-ip.txt
+Ref:            https://rdap.arin.net/registry/ip/172.32.0.0
+OrgName:        T-Mobile USA, Inc.
+OrgId:          TMOBI
+Address:        12920 SE 38th Street
+City:           Bellevue
+StateProv:      WA
+PostalCode:     98006
+Country:        US
+RegDate:        2003-01-02
+Updated:        2017-01-28
+Ref:            https://rdap.arin.net/registry/entity/TMOBI
+OrgAbuseHandle: ABUSE4857-ARIN
+OrgAbuseName:   abuse
+OrgAbusePhone:  +1-888-662-4662
+OrgAbuseEmail:  abuse@t-mobile.com
+OrgAbuseRef:    https://rdap.arin.net/registry/entity/ABUSE4857-ARIN
+OrgTechHandle: DNSAD11-ARIN
+OrgTechName:   DNS Administrators
+OrgTechPhone:  +1-888-662-4662
+OrgTechEmail:  ARINtechcontact@t-mobile.com
+OrgTechRef:    https://rdap.arin.net/registry/entity/DNSAD11-ARIN
+
+
+
+2.  Lookup results for 172.58.97.52 from  WHOIS.RIPE.NET  Server:
+inetnum:        171.34.0.0 - 172.80.127.255
+netname:        NON-RIPE-NCC-MANAGED-ADDRESS-BLOCK
+descr:          IPv4 address block not managed by the RIPE NCC
+remarks:        ------------------------------------------------------
+remarks:
+remarks:        For registration information,
+remarks:        you can consult the following sources:
+remarks:
+remarks:        IANA
+remarks:        http://www.iana.org/assignments/ipv4-address-space
+remarks:        http://www.iana.org/assignments/iana-ipv4-special-registry
+remarks:        http://www.iana.org/assignments/ipv4-recovered-address-space
+remarks:
+remarks:        AFRINIC (Africa)
+remarks:        http://www.afrinic.net/ whois.afrinic.net
+remarks:
+remarks:        APNIC (Asia Pacific)
+remarks:        http://www.apnic.net/ whois.apnic.net
+remarks:
+remarks:        ARIN (Northern America)
+remarks:        http://www.arin.net/ whois.arin.net
+remarks:
+remarks:        LACNIC (Latin America and the Carribean)
+remarks:        http://www.lacnic.net/ whois.lacnic.net
+remarks:
+remarks:        ------------------------------------------------------
+country:        EU # Country is really world wide
+admin-c:        IANA1-RIPE
+tech-c:         IANA1-RIPE
+status:         ALLOCATED UNSPECIFIED
+mnt-by:         RIPE-NCC-HM-MNT
+created:        2019-01-07T10:48:46Z
+last-modified:  2019-01-07T10:48:46Z
+source:         RIPE
+role:           Internet Assigned Numbers Authority
+address:        see http://www.iana.org.
+admin-c:        IANA1-RIPE
+tech-c:         IANA1-RIPE
+nic-hdl:        IANA1-RIPE
+remarks:        For more information on IANA services
+remarks:        go to IANA web site at http://www.iana.org.
+mnt-by:         RIPE-NCC-MNT
+created:        1970-01-01T00:00:00Z
+last-modified:  2001-09-22T09:31:27Z
+source:         RIPE # Filtered
