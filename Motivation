@@ -1,0 +1,92 @@
+Motivation Locating suspicious transactions
+patterns through automated
+anomaly detection
+Identifying success factors for
+historical pumps
+Examining how pump-and-
+dumps are correlated with
+cryptocurrency price
+Predicting the coin to be pumped
+with input of Telegram signals
+Methodology Breakout indicators & rein-
+forcers
+Ordinary least squares (OLS) OLS, difference in difference RF, GLM
+Data Market data of cryptocurrencies
+from April 2018 to May 2018 on
+Binance, Bittrex, Kraken, Kucoin
+and Lbank
+Explicit (with coin announce-
+ment) and suspected (no coin an-
+nouncement) pump-and-dumps
+from January 2018 to July 2018
+Pump-and-dump events from
+May 2017 to August 2018 on Bi-
+nance, Bittrex, and Yobit, with a
+focus on Bittrex
+Pump-and-dump events from
+June 2018 to February 2019 on
+Binance, Bittrex, Cryptopia and
+Yobit, with a focus on Cryptopia
+Main finding
+/
+contribution
+The authors develop a defin-
+ing criteria set for detecting sus-
+picious activity like pump-and-
+dumps.
+Pumping obscure, small-market-
+cap coins is more likely to be suc-
+cessful.
+Pump-and-dumps are detrimen-
+tal to the liquidity and price of
+cryptocurrencies.
+Pump-and-dumps schemes can
+be found and foiled by machine
+learning.
+Table 5: Comparison of studies on cryptocurrency pump-and-dump.
+examine bubbles in the Ripple and Bicoin markets;
+Baur et al. [6] investigate asymmetric volatility effects of
+large cryptocurrencies and discover that in the crypto market
+positive shocks increase the volatility more than negative ones.
+Jahani et al. [19] assess whether and when the discussions
+of cryptocurrencies are truth-seeking or hype-based, and dis-
+cover a negative correlation between the quality of discussion
+and price volatility of the coin.
+7 Conclusions
+This paper presents a detailed study of pump-and-dump
+schemes in the cryptocurrency space. We start by present-
+ing the anatomy of a typical attack and then investigate a
+variety of aspects of real attacks on crypto-coins over the last
+eight months on four crypo-exchanges. The study demon-
+strates the persisting nature of pump-and-dump activities in
+the crypto-market that are the driving force behind tens of
+millions of dollars of phony trading volumes each month. The
+study reveals that pump-and-dump organizers can easily use
+their insider information to profit from a pump-and-dump
+event at the sacrifice of fellow pumpers.
+Through market investigation, we further discover that mar-
+ket movements prior to a pump-and-dump event frequently
+contain information on witch coin will be pumped. Using
+LASSO regularized GML and balanced random forests, we
+build various models that are predicated on the time and venue
+(exchange) of a pump-and-dump broadcast in a Telegram
+group. Multiple models display high performance across all
+subsamples, implying that pumped coins can be predicted
+based on market information. We further propose a simple
+but effective trading strategy that can be used in combination
+with the prediction models. Out-of-sample tests show that a
+return of as high as 60% over two and half months can be
+consistently exploited even under conservative assumptions.
+In sum, we wish to raise the awareness of pump-and-dump
+schemes permeating the crypto-market through our study. We
+show that with fairly rudimentary machine learning models,
+one can accurately predict pump-and-dump target coins in
+the crypto-market. As such, we hope our research could, on
+one hand, lead to fewer people falling victim to market ma-
+nipulation and more people trading strategically, and on the
+other hand, urge the adoption of new technology for regu-
+lators to detect market abuse and criminal behavior. If such
+advice would be heeded, admins’ schemes would crumble,
+which would in turn lead to a healthier trading environment,
+accelerating the market towards a fairer and more efficient
+equilibriu
