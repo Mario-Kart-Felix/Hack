@@ -1,0 +1,10 @@
+Memory errors
+Memory errors usually derive from the exploitation of vulnerabilities (depicted as holes in a wall in Figure 21.1) existing in a given application due to software faults introduced during the software’s implementation. The most common software faults leading to memory errors are off-by-one, integer, and buffer overflow.
+
+Off-by-one vulnerabilities [16] write one byte outside the bounds of allocated memory. They are often related to iterative loops iterating one time too many or common string functions incorrectly terminating strings. For instance, the bug reported by Frank Bussed [17] in the libpng library allowed remote attackers to cause an application crash via a crafted PNG image that triggered an out-of-bounds read during the copy of an error-message data.
+
+Integer vulnerabilities [18] are usually caused by an integer exceeding its maximum or minimum boundary value. They can be used to bypass size checks or cause buffers to be allocated a size too small to contain the data copied into them. A recent bug discovered on the libpng library did not properly handle certain malformed PNG images [19]. It allowed remote attackers to overwrite memory with an arbitrary amount of data and possibly have other unspecified impact, via a crafted PNG image. Vendors affected included Apple, Debian GNU/Linux, Fedora, Gentoo, Google, Novell, Ubuntu, and SUSE.
+
+Buffer overflows [20] are caused by overrunning the buffer’s boundary while writing data into a buffer. This allows attackers to overwrite data that controls the program execution path and hijack the program to execute the attacker’s code instead of the process code. A recent stack-based buffer overflow example involved the cbtls_verify function in FreeRADIUS, causing server crashes and possibly executing arbitrary code via a long “not after” timestamp in a client certificate [21].
+
+Over the past decade, different techniques have been developed to prevent attacks from successfully exploiting these vulnerabilities, thus reducing their chance of causing memory errors.
