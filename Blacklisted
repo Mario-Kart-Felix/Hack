@@ -1,0 +1,102 @@
+
+Scanned IP/Host : 172.58.97.52
+
+
+Status	Blacklist	Reason	ResponseTime (ms)
+ OK	access.redhawk.org	172.58.97.52 is not Listed	297
+ OK	all.s5h.net	172.58.97.52 is not Listed	182
+ OK	b.barracudacentral.org	172.58.97.52 is not Listed	193
+ Listed	bl.emailbasura.org	172.58.97.52 is Listed	16
+ Listed	bl.spamcannibal.org	172.58.97.52 is Listed	435
+ OK	bl.spamcop.net	172.58.97.52 is not Listed	9
+ OK	bl.technovision.dk	172.58.97.52 is not Listed	2
+ OK	bl.tiopan.com	172.58.97.52 is not Listed	28026
+ OK	blackholes.five-ten-sg.com	172.58.97.52 is not Listed	698
+ OK	blackholes.wirehub.net	172.58.97.52 is not Listed	1
+ OK	blacklist.sci.kun.nl	172.58.97.52 is not Listed	43
+ OK	blacklist.woody.ch	172.58.97.52 is not Listed	10
+ OK	block.dnsbl.sorbs.net	172.58.97.52 is not Listed	207
+ OK	blocked.hilli.dk	172.58.97.52 is not Listed	3
+ OK	bogons.cymru.com	172.58.97.52 is not Listed	244
+ OK	cart00ney.surriel.com	172.58.97.52 is not Listed	286
+ OK	cbl.abuseat.org	172.58.97.52 is not Listed	10
+ OK	cblless.anti-spam.org.cn	172.58.97.52 is not Listed	11
+ OK	cdl.anti-spam.org.cn	172.58.97.52 is not Listed	11
+ OK	combined.abuse.ch	172.58.97.52 is not Listed	1
+ OK	db.wpbl.info	172.58.97.52 is not Listed	276
+ OK	dev.null.dk	172.58.97.52 is not Listed	85
+ OK	dialup.blacklist.jippg.org	172.58.97.52 is not Listed	207
+ OK	dialups.mail-abuse.org	172.58.97.52 is not Listed	19
+ OK	dialups.visi.com	172.58.97.52 is not Listed	239
+ OK	dnsbl-1.uceprotect.net	172.58.97.52 is not Listed	22
+ OK	dnsbl-2.uceprotect.net	172.58.97.52 is not Listed	8
+ OK	dnsbl-3.uceprotect.net	172.58.97.52 is not Listed	102
+ OK	dnsbl.abuse.ch	172.58.97.52 is not Listed	1
+ OK	dnsbl.anticaptcha.net	172.58.97.52 is not Listed	162
+ OK	dnsbl.antispam.or.id	172.58.97.52 is not Listed	1
+ OK	dnsbl.cyberlogic.net	172.58.97.52 is not Listed	192
+ OK	dnsbl.dronebl.org	172.58.97.52 is not Listed	187
+ OK	dnsbl.inps.de	172.58.97.52 is not Listed	27
+ OK	dnsbl.kempt.net	172.58.97.52 is not Listed	259
+ OK	dnsbl.njabl.org	172.58.97.52 is not Listed	3
+ Listed	dnsbl.sorbs.net	172.58.97.52 is Listed	333
+ OK	dnsbl.tornevall.org	172.58.97.52 is not Listed	601
+ OK	drone.abuse.ch	172.58.97.52 is not Listed	1
+ OK	duinv.aupads.org	172.58.97.52 is not Listed	420
+ OK	dul.dnsbl.sorbs.net	172.58.97.52 is not Listed	1
+ OK	dul.ru	172.58.97.52 is not Listed	128
+ OK	dyna.spamrats.com	172.58.97.52 is not Listed	326
+ OK	dynip.rothen.com	172.58.97.52 is not Listed	24
+ OK	escalations.dnsbl.sorbs.net	172.58.97.52 is not Listed	135
+ OK	exitnodes.tor.dnsbl.sectoor.de	172.58.97.52 is not Listed	10
+ OK	hil.habeas.com	172.58.97.52 is not Listed	29
+ OK	http.dnsbl.sorbs.net	172.58.97.52 is not Listed	206
+ OK	intruders.docs.uu.se	172.58.97.52 is not Listed	59
+ OK	ips.backscatterer.org	172.58.97.52 is not Listed	221
+ OK	ix.dnsbl.manitu.net	172.58.97.52 is not Listed	11
+ OK	korea.services.net	172.58.97.52 is not Listed	207
+ OK	mail-abuse.blacklist.jippg.org	172.58.97.52 is not Listed	207
+ OK	misc.dnsbl.sorbs.net	172.58.97.52 is not Listed	330
+ OK	msgid.bl.gweep.ca	172.58.97.52 is not Listed	219
+ OK	new.dnsbl.sorbs.net	172.58.97.52 is not Listed	132
+ OK	no-more-funn.moensted.dk	172.58.97.52 is not Listed	22
+ OK	noptr.spamrats.com	172.58.97.52 is not Listed	229
+ OK	old.dnsbl.sorbs.net	172.58.97.52 is not Listed	335
+ OK	orvedb.aupads.org	172.58.97.52 is not Listed	423
+ Listed	pbl.spamhaus.org	172.58.97.52 is Listed	29
+ OK	proxy.bl.gweep.ca	172.58.97.52 is not Listed	219
+ OK	psbl.surriel.com	172.58.97.52 is not Listed	242
+ OK	pss.spambusters.org.ar	172.58.97.52 is not Listed	19
+ OK	rbl.schulte.org	172.58.97.52 is not Listed	249
+ OK	rbl.snark.net	172.58.97.52 is not Listed	19
+ OK	recent.dnsbl.sorbs.net	172.58.97.52 is not Listed	333
+ OK	relays.bl.gweep.ca	172.58.97.52 is not Listed	217
+ OK	relays.bl.kundenserver.de	172.58.97.52 is not Listed	14
+ OK	relays.mail-abuse.org	172.58.97.52 is not Listed	20
+ OK	relays.nether.net	172.58.97.52 is not Listed	115
+ OK	rsbl.aupads.org	172.58.97.52 is not Listed	416
+ OK	sbl.spamhaus.org	172.58.97.52 is not Listed	17
+ OK	short.rbl.jp	172.58.97.52 is not Listed	512
+ OK	singular.ttk.pte.hu	172.58.97.52 is not Listed	117
+ OK	smtp.dnsbl.sorbs.net	172.58.97.52 is not Listed	335
+ OK	socks.dnsbl.sorbs.net	172.58.97.52 is not Listed	204
+ OK	spam.abuse.ch	172.58.97.52 is not Listed	1
+ OK	spam.dnsbl.sorbs.net	172.58.97.52 is not Listed	204
+ OK	spam.olsentech.net	172.58.97.52 is not Listed	1
+ OK	spam.spamrats.com	172.58.97.52 is not Listed	211
+ OK	spambot.bls.digibase.ca	172.58.97.52 is not Listed	337
+ OK	spamguard.leadmon.net	172.58.97.52 is not Listed	1
+ OK	spamrbl.imp.ch	172.58.97.52 is not Listed	40
+ OK	spamsources.fabel.dk	172.58.97.52 is not Listed	8
+ OK	tor.dnsbl.sectoor.de	172.58.97.52 is not Listed	9
+ OK	ubl.lashback.com	172.58.97.52 is not Listed	11
+ OK	ubl.unsubscore.com	172.58.97.52 is not Listed	8
+ OK	virbl.bit.nl	172.58.97.52 is not Listed	11
+ OK	virus.rbl.jp	172.58.97.52 is not Listed	508
+ OK	web.dnsbl.sorbs.net	172.58.97.52 is not Listed	272
+ OK	whois.rfc-ignorant.org	172.58.97.52 is not Listed	1
+ OK	wormrbl.imp.ch	172.58.97.52 is not Listed	20
+ OK	xbl.spamhaus.org	172.58.97.52 is not Listed	7
+ Listed	zen.spamhaus.org	172.58.97.52 is Listed	44
+ OK	zombie.dnsbl.sorbs.net	172.58.97.52 is not Listed	195
+This IP has 5 bad listings of 96!
