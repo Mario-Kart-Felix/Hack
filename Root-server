@@ -1,0 +1,22 @@
+Root-Server Output for: 172.58.97.52 (172.58.97.52)
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 63384
+;; flags: qr aa rd; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;172.58.97.52.			IN	ANY
+
+;; AUTHORITY SECTION:
+.			86400	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2021052602 1800 900 604800 86400
+
+;; Query time: 30 msec
+;; SERVER: 199.7.83.42#53(199.7.83.42)
+;; WHEN: Thu May 27 05:42:24 CEST 2021
+;; MSG SIZE  rcvd: 116
+
+done ...
