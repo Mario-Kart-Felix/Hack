@@ -1,0 +1,13 @@
+class Gem::ConflictError
+Raised when there are conflicting gem specs loaded
+
+Attributes
+conflicts[R]
+A Hash mapping conflicting specifications to the dependencies that caused the conflict
+
+target[R]
+The specification that had the conflict
+
+Public Class Methods
+new(target, conflicts)
+Calls superclass method Exception::new
