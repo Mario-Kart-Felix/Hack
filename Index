@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guwop Vox: A Gucci Mane Digital Soundboard </title>
+    <link rel="stylesheet" href="css/html-body-reset.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Rum+Raisin|Hammersmith+One|Ledger' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+    <div class="all-face-container frame">
+        <div class="face-container" id="chain">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane Is Self Conscious</h3></div>
+            <audio  id="chain-audio">
+                <source src="audio/chain.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="privacy">
+            <img src="img/gucci-mane-smile.png" class="face" >
+            <div class="text-container"><h3>Gucci Mane Enjoys His Privacy</h3></div>
+            <audio  id="privacy-audio">
+                <source src="audio/privacy.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="building">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3> Gucci Mane's Grand Entrance</h3></div>
+            <audio  id="building-audio">
+                <source src="audio/building.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="burr">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane Might Have Hypothermia</h3></div>
+            <audio  id="burr-audio">
+                <source src="audio/burr.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="wow">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane Is Amazed</h3></div>
+            <audio  id="wow-audio">
+                <source src="audio/wow.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="time">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane Knows What Time It Is</h3></div>
+            <audio  id="time-audio">
+                <source src="audio/time.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="airplane">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane Is An Airplane</h3></div>
+            <audio  id="airplane-audio">
+                <source src="audio/airplane.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="face-container" id="uhh">
+            <img src="img/gucci-mane-smile.png" class="face">
+            <div class="text-container"><h3>Gucci Mane's Rick Ross Impression</h3></div>
+            <audio  id="uhh-audio">
+                <source src="audio/uhh.mp3" type="audio/mp3">
+            </audio>
+        </div>
+    </div>
+    <div id="plaque"><img src="img/plaque.png"></div>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/gucci.js"></script>
+</body>
+</html>
