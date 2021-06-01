@@ -1,0 +1,39 @@
+[ MISC ]
+– Added option ‘2’ to sv_damage_print_enable, which, when set, will only print damage output after round has ended.
+– Coach positions are now saved in round backup files.
+– In Deathmatch, fixed the ability to extend invulnerability by repeatedly issuing the “open_buymenu” command.
+– In Retakes, armor value now remains fixed during card selection.
+
+[ VSCRIPT ]
+– Fixed bounding box issue for rotated entities.
+
+[ MAPS ]
+– Ancient
+— Art-revision on bombsite B and surrounding area
+— Higher contrast base textures at B for better player reads
+— Fixed random missing micro-polygons in bomb B totem/sculpture
+— Recolored plywood throughout the map for better contrast
+— Straightened out broken-wall passage to bombsite B
+— Tweaked spawnpoint placement for both teams
+
+– Grind
+— Reduced lurk positions in mid for more fluid rotations.
+— Lowered cover on A Short to allow boosting over smokes.
+— Removed unintended boost locations.
+— Fixed multiple bomb stuck spots.
+— Minor quality of life and art updates.
+
+– Mocha
+— Clipping improvements.
+— Navigation mesh improvements.
+— Added additional bombsite markers.
+— Bug fixes: deathmatch gamemode spawns, CT spawn soundscape, minor lighting errors.
+
+– Cache
+— Performance optimizations. (Thanks leplubodeslapin!)
+— Reduced bird sounds volume.
+— Reduced contrast on some textures.
+— Brightened sky slightly.
+— Fixed minor issues. (Thanks imik!)
+— Restored vivid color to select textures and models.
+— Restored select details even on lowest graphical settings.
