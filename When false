@@ -1,0 +1,55 @@
+When implementing composite primary keys in Hibernate or other ORMs there are up to three places where to put the insertable = false, updatable = false in composite primary key constellations that use identifying relationships (FKs that are part of the PK):
+
+Into the composite PK class' @Column annotation (@Embeddable classes only) or
+Into the entity class' association @JoinColumn/s annotation or
+Into the entity class' redundant PK property's @Column annotation (@IdClass classes only)
+The third is the only way to do with @IdClass and JPA 1.0 AFAIK. See http://en.wikibooks.org/wiki/Java_Persistence/Identity_and_Sequencing#Primary_Keys_through_OneToOne_Relationships. I will consider only cases 1. and 2.
+
+Q: Which way is the preferred place to put the "insertable = false, updatable = false" to generally?
+
+I have experienced problems with Hibernate concerning this question. For example, Hibernate 3.5.x will complain about the Zips table
+
+CREATE TABLE Zips
+(
+  country_code CHAR(2),
+  code VARCHAR(10),
+  PRIMARY KEY (country_code, code),
+  FOREIGN KEY (country_code) REFERENCES Countries (iso_code)
+)
+with:
+
+org.hibernate.MappingException: Repeated column in mapping for entity: com.kawoolutions.bbstats.model.Zip column: country_code (should be mapped with insert="false" update="false")
+org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:676)
+org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:698)
+...
+As you can see the country_code column is both PK and FK. Here are its classes:
+
+Entity class:
+
+@Entity
+@Table(name = "Zips")
+public class Zip implements Serializable
+{
+    @EmbeddedId
+    private ZipId id;
+
+    @ManyToOne
+    @JoinColumn(name = "country_code", referencedColumnName = "iso_code")
+    private Country country = null;
+...
+}
+Composite PK class:
+
+@Embeddable
+public class ZipId implements Serializable
+{
+    @Column(name = "country_code", insertable = false, updatable = false)
+    private String countryCode;
+
+    @Column(name = "code")
+    private String code;
+...
+}
+When putting the insertable = false, updatable = false into the entity class association's @JoinColumn all exceptions disappear and everything work fine. However, I don't see why the above code should not be working. It might be Hibernate having problems with this. Is the described a Hibernate bug, as it doesn't seem to evaluate @Column "insertable = false, updatable = false"?
+
+In essence, what's the standard JPA way, the best practice, or preference where to put "insertable = false, updatable = false"?
