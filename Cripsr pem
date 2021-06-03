@@ -1,0 +1,109 @@
+beads nested PCR (Taq, Transgen Biotech, China) with
+I5 and I7 sequence primers for 16 cycles. Then PCR
+products were recovered by size-selection beads (Axygen,
+US) followed by PCR (Fastpfu, Transgen Biotech, China)
+tagged with Illumina P5 and P7 sequence. All the
+PEM-seq libraries were subjected to sequencing by
+2 × 150 bp Hiseq.
+Plasmid construction
+All the gRNA sequences were listed (Supplementary
+Table S10). Cas9 targeting gRNAs used the pX330 back-
+bone (Addgene 42230) and the Cas9 nickase using
+pX335 (Addgene 42335). Cas9 variants, SaCas9 were
+inserted into pX330 backbone as follows: Cas9 variants
+cDNAs (D1135E, eCas9(1.1), and FeCas9) were generated
+by mutation-overlap PCR and then inserted into
+pX330 plasmid through AgeI/EcoRI. SaCas9 cDNA was
+purified with AgeI/EcoRI from pX601 (Addgene 61591)
+and then directly ligated to AgeI/EcoRI-digested pX330
+plasmid, and the U6 promoter-SaCas9 gRNA scaffold
+DNA from pX601 was inserted into pX330-SaCas9
+between AflIII and XbaI. AcrIIA4 plasmid PJH376 was
+obtained from Addgene (Addgene 86842).
+Cell line and cell transfection
+293T, U2OS, and HCT116 cells were cultured in
+Dulbecco’s modified Eagle’s medium (Corning) with
+glutamine (Corning), 10% fetal bovine serum (FBS), and
+penicillin/streptomycin (Corning) at 37 °C with 5% CO2.
+K562 cells were cultured in RPMI 1640 (Corning) with
+glutamine, 15% FBS, and penicillin/streptomycin (Corn-
+ing) at 37 °C with 5% CO2. Libraries for HEK293T cells
+were prepared by Ca-PO4 co-transfection with 7.2 μg
+nuclease plasmid and 1.8 μg pMAX-GFP in 6-cm dishes.
+Libraries for U2OS were co-transfected with 20 μg Cas9
+plasmid and 5 μg green fluorescent protein (GFP) plasmid
+by PEI (Sigma) in 10 cm dishes. HCT116 were transfected
+with 20 μg Cas9 plasmid and 5 μg GFP plasmid by Lipo-
+fectamine 2000 (Invitrogen) in 10 cm dishes. Twenty
+micrograms of pX330 and 5 μg GFP were co-introduced
+into K562 cells by nucleofector 4D with FF120 program
+in SF buffer (Lonza). Cas9 inhibitor AcrIIA4 titration
+libraries were prepared from cells co-transfected with 2 μg
+Cas9:RAG1A plasmid, 6 μg AcrIIA4 plus blank plasmids
+in indicated ratios, and 1 μg GFP plasmid by Ca-PO4 in
+six-well dishes. For SaCas9:MYC1 libraries, 2 μg SaCas9:
+MYC locus1 plasmid, 2 μg Cas9:RAG1A plasmid, 2 μg
+AcrIIA4 or blank plasmid, and 1 μg GFP plasmid were co-
+transfected into cells cultured in six-well dishes. For other
+1:1 libraries, HEK293T cells were co-transfected with 2 μg
+pX330 plasmid, 2 μg AcrIIA4 or blank plasmid, and 1 μg
+GFP plasmid. All the libraries were analyzed for GFP
+co-transfection efficiency by fluorescence-activated cell
+sorting 48 h after plasmid delivery.
+“SuperQ” pipeline for PEM-seq analysis
+Hiseq reads were processed as following. For initial
+reads preprocessing, both Illumina adapter sequences and
+ending low-quality sequences (QC < 30) were trimmed
+by cutadapt (http://cutadapt.readthedocs.io/en/stable/);
+remaining reads shorter than 25 bp were discarded. Then
+reads were de-multiplexed using fastq-multx (https://
+github.com/brwnj/fastq-multx) to distinguish index. For
+reads alignment and clustering, we adapted corresponding
+pipeline used in LAM-HTGTS9 to perform reads map-
+ping and translocation break point detection. Note that
+we used the hg38 genome as reference. Uniquely mapped
+reads were filtered program as LAM-HTGTS did but
+all the duplicates were kept for following precession. A
+molecular barcode clustering algorithm38 was adapted
+to remove PCR duplicates at an editing distance of 2.
+Break-site and neighbor ±5 bp region was analyzed for
+indels; reads containing large deletions resulting from
+resection and rejoining in the break-site ±250 kb region
+were also categorized as indels (I). Reads without any
+detected mutations around break point were identified
+as germline (G). Genome-wide translocation (T) was
+identified as before. Taking uncut control and transfection
+efficiency (TE) into account, the editing efficiency was
+calculated as bellow:
+Editing efficiency ¼
+ISþTS
+GSþISþTS -
+ ICþTC
+GCþICþTC
+TE
+where S represents the nuclease-treated library and C
+represents the control library.
+Off-target hotspot identification
+We excluded reads proximal to break-site (±250 kb) and
+used MACS2 callpeak mode to identify translocation
+enriched region: --extsize 50 -q 0.05 --llocal 10000000.
+MACS2 results were further filtered to remove sites with
+no target site-similar sequence or <3 junctions. A hotspot
+with highly similar sequence as target site and/or definite
+PAM and occurring in at least two library replicates
+was considered as an off-target site9
+. Briefly, the off-
+target hotspots are recurrent in a focal region containing
+cryptic target sequences and have a balanced directional
+distribution with a center right at the presumable
+cutting site. Yet, the off-target-independent translocations
+are usually low frequent and have biased directional
+distribution with no neighbor target-similar sequences.
+Total number of junctions within ±500 bp of off-target
+presumable cutting site was counted to calculate the
+off-target intensity after normalization to uncut control
+library:
+Hotspot intensity ¼ Hotspot junctions
+ðIS -
+ ICÞþðTN -
+ TCÞ ´ 100; 0
