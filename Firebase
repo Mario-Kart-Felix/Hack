@@ -1,0 +1,29 @@
+ Dependabot cannot update @firebase/util to a non-vulnerable version
+The latest possible version that can be installed is 0.2.22 because of the following conflicting dependencies:
+
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/app@0.4.11
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/database@0.4.8
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/firestore@1.4.5
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/installations@0.2.1
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/messaging@0.4.5
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/performance@0.2.12
+firebase@6.3.1 requires @firebase/util@0.2.22 via @firebase/storage@0.3.6
+firebase@6.3.1 requires @firebase/util@0.2.22
+The earliest fixed version is 0.3.4.
+
+Learn more about troubleshooting Dependabot errors.
+
+1 @firebase/util vulnerability found in yarn.lock 18 days ago
+Remediation
+Upgrade @firebase/util to version 0.3.4 or later. For example:
+
+@firebase/util@^0.3.4:
+  version "0.3.4"
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-7765
+moderate severity
+Vulnerable versions: < 0.3.4
+Patched version: 0.3.4
+This affects the package @firebase/util before 0.3.4. This vulnerability relates to the deepExtend function within the DeepCopy.ts file. Depending on if user input is provided, an attacker can overwrite and pollute the object prototype of a program.
