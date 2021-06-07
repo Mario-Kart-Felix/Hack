@@ -1,0 +1,123 @@
+PowerShell Protect is an Antimalware Scan Interface provider. Once it is registered with the operating system it will scan all PowerShell scripts that are executed on the machine.
+
+PowerShell Protect is highly configurable via XML files to provide the ability to filter the scripts that are audited and blocked. You can use filters such as command, content, path, domain controller status and administrator access.
+
+If a filter is matched you can configure both auditing and blocking. When auditing is enabled, you can send event information to a file, a TCP port or an HTTP server. If blocking is enabled, the matched script will be prevented from running.
+
+Installing PowerShell Protect
+PowerShell Protect is distributed as a PowerShell module. You can download it by using Install-Module.
+
+Install-Module PowerShellProtect
+Once you have the module installed, you can use the Install-PowerShellProtect to register the PowerShell Protect AMSI provider. You will need administrative permissions to install the provider. PowerShell Protect is supported on Windows 10 and above as well as Windows Server 2016 and above.
+
+Creating a filtering rule
+There are numerous properties that you can use to define filters for PowerShell protect rules. Some of these properties include script content, PowerShell command, administrative permissions, domain controller status and domain name. For a full list of properties, visit our documentation.
+
+PowerShell Protect is configured using an XML file. There are several places you can use to configure the system. The easiest to use when developing rules is by create a configuration file in %ProgramData%\PowerShellProtect\config.xml. For other options, visit out documentation.
+
+Rules are made up of a series of conditions. For the rule to match, all the conditions must be met. Each condition checks a property of the script’s execution context. You can use various operators to match the value you wish. These include expressions like equals, not equals, contains, and even regular expressions.
+
+The below example will match conditions will match the Invoke-WebRequest command. Matching is case-insensitive.
+
+<Conditions>
+    <Condition>
+        <Property>command</Property>
+        <Operator>contains</Operator>
+        <Value>invoke-webrequest</Value>
+    </Condition>
+</Conditions>
+Taking action based on a rule
+When a rule matches, you can assign one or more actions to take place. The available actions are auditing to a file, TCP or HTTP server and blocking.
+
+The first step is to define the available actions and settings for the type of action you wish to take. This allows you to use the action for multiple rules.
+
+The following example configurations actions for auditing to the %temp%\test.txt file using a custom format and blocking. The name is used when referencing the action within the rule.
+
+<Actions>
+    <Action>
+        <Name>File</Name>
+        <Type>File</Type>
+        <Settings>
+        <Setting>
+            <Name>Path</Name>
+            <Value>%temp%\test.txt</Value>
+        </Setting>
+        <Setting>
+            <Name>Format</Name>
+            <Value>{applicationName},{rule}</Value>
+        </Setting>
+        </Settings>
+    </Action>
+    <Action>
+        <Name>Block</Name>
+        <Type>Block</Type>
+    </Action>
+</Actions>
+To assign an action to a rule, you can use the Action and ActionRef nodes.
+
+<Actions>
+    <ActionRef>
+        <Name>File</Name>
+    </ActionRef>
+    <ActionRef>
+        <Name>Block</Name>
+    </ActionRef>
+</Actions>
+For more information on the settings available for actions and also how to customize the output format, visit our documentation.
+
+Seeing it in action
+The full example XML document is show here. Create a file with this content in the %ProgramData%\PowerShellProtect\config.xml
+
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <Rules>
+    <Rule>
+      <Name>Web Request</Name>
+      <Conditions>
+        <Condition>
+          <Property>command</Property>
+          <Operator>contains</Operator>
+          <Value>invoke-webrequest</Value>
+        </Condition>
+      </Conditions>
+      <Actions>
+        <ActionRef>
+          <Name>File</Name>
+        </ActionRef>
+        <ActionRef>
+          <Name>Block</Name>
+        </ActionRef>
+      </Actions>
+    </Rule>
+  </Rules>
+  <Actions>
+    <Action>
+      <Name>File</Name>
+      <Type>File</Type>
+      <Settings>
+        <Setting>
+          <Name>Path</Name>
+          <Value>%temp%\test.txt</Value>
+        </Setting>
+        <Setting>
+          <Name>Format</Name>
+          <Value>{applicationName},{rule}</Value>
+        </Setting>
+      </Settings>
+    </Action>
+    <Action>
+      <Name>Block</Name>
+      <Type>Block</Type>
+    </Action>
+  </Actions>
+</Configuration>
+Once the file has been created, you can immediately see the results of configuration by executing a command in PowerShell.exe. Since blocking is enabled, you will receive an error if you try to run Invoke-WebRequest. You will also see an audit log created in the temp folder.
+
+
+
+Supported Scenarios
+As mention earlier, AMSI providers, like PowerShell Protect, require Windows 10 and Windows Server 2016 or later.
+
+In addition to PowerShell.exe and Pwsh.exe, PowerShell Protect will work in any PowerShell host. This means that anything that is hosting and running PowerShell is still protected. You can use the ApplicationName property when creating rules to adjust the rule based on the PowerShell host. The application name property includes the full path to the host.
+
+Additionally, you will have access to some properties that provide context of the account and environment executing the script. You’ll be able to adjust rules for domain name, user name, domain controller status and admin status.
