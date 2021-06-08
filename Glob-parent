@@ -1,0 +1,18 @@
+Remediation
+Upgrade glob-parent to version 5.1.2 or later. For example:
+
+"dependencies": {
+  "glob-parent": ">=5.1.2"
+}
+or…
+"devDependencies": {
+  "glob-parent": ">=5.1.2"
+}
+Always verify the validity and compatibility of suggestions with your codebase.
+
+Details
+CVE-2020-28469
+moderate severity
+Vulnerable versions: < 5.1.2
+Patched version: 5.1.2
+This affects the package glob-parent before 5.1.2. The enclosure regex used to check for strings ending in enclosure containing path separator.
