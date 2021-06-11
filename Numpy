@@ -1,0 +1,32 @@
+In [2]:
+import numpy as np
+import pandas as pd
+Loading the dataset
+
+In [3]:
+df=pd.read_csv("Paste the path of times.csv here for reading the dataset")
+DataFrame.head() would return first five rows the dataset
+
+In [4]:
+df.head()
+Out[4]:
+Name	Occupation	Time.Spotted
+0	Mary Martin	actress	2018-01-29 12:41:00
+1	Woody Allen	director	2018-07-23 04:42:30
+2	Lou Rawls	singer	2018-02-01 10:18:10
+3	Lee Trevino	PGA golfer	2018-12-20 03:46:00
+4	Richard Pryor	actor	2018-03-21 18:21:20
+Checking the column values datatype, for further calculations
+
+In [5]:
+datatype=df.dtypes
+print(datatype)
+Name            object
+Occupation      object
+Time.Spotted    object
+dtype: object
+Convert Time.Spotted from String object to DateTime object
+
+In [ ]:
+#Enter code below(note the dtype changed should reflect in the initial dataset)
+In [ ]:
