@@ -1,0 +1,56 @@
+------------------------------------------------------------------------------------------
+Domain			TTL	IN	Record	Answer
+------------------------------------------------------------------------------------------
+cyberciti.biz.		5m	IN	A	104.22.11.214
+cyberciti.biz.		5m	IN	A	104.22.10.214
+cyberciti.biz.		5m	IN	A	172.67.7.239
+cyberciti.biz.		5m	IN	AAAA	2606:4700:10::6816:ad6
+cyberciti.biz.		5m	IN	AAAA	2606:4700:10::6816:bd6
+cyberciti.biz.		5m	IN	AAAA	2606:4700:10::ac43:7ef
+cyberciti.biz.		5m	IN	MX	1 aspmx.l.google.com.
+cyberciti.biz.		5m	IN	MX	10 aspmx2.googlemail.com.
+cyberciti.biz.		5m	IN	MX	10 aspmx3.googlemail.com.
+cyberciti.biz.		5m	IN	MX	5 alt1.aspmx.l.google.com.
+cyberciti.biz.		5m	IN	MX	5 alt2.aspmx.l.google.com.
+The shell script will automatically strip out sub-domains to find correct NS (Auth Name servers). For example:
+./find-domain-ttl www.cyberciti.biz
+./find-domain-ttl www.google.com
+
+Sample session:
+
+
+Shell script too see Time-To-Live (TTL) for a DNS record
+Summing up
+The dig command is a useful DNS troubleshooting tool for all developers and sysadmins. We can find a host and domains TTL (time to live) for solving problems. This script provides output in a human-readable format. One can use TTL for DNS migration or cloud server migration. Hence, knowing TTL is critical as it will tell how long the DNS client will point to old DNS records on the server.
+
+🐧 Get the latest tutorials on SysAdmin, Linux/Unix, Open Source, and DevOps topics via:
+RSS feed or Weekly email newsletter
+2 comments... add one ↓
+🔎 To search, type & hit enter...
+
+Related Shell Scripts:
+
+
+Linux shell script to reduce PDF file size
+
+
+Curl Shell Script To Purge Cache From Stackpath CDN
+Category	List of Unix and Linux commands
+Disk space analyzers	df • ncdu • pydf
+File Management	cat • cp • mkdir • tree
+Firewall	Alpine Awall • CentOS 8 • OpenSUSE • RHEL 8 • Ubuntu 16.04 • Ubuntu 18.04 • Ubuntu 20.04
+Network Utilities	NetHogs • dig • host • ip • nmap
+OpenVPN	CentOS 7 • CentOS 8 • Debian 10 • Debian 8/9 • Ubuntu 18.04 • Ubuntu 20.04
+Package Manager	apk • apt
+Processes Management	bg • chroot • cron • disown • fg • jobs • killall • kill • pidof • pstree • pwdx • time
+Searching	grep • whereis • which
+User Information	groups • id • lastcomm • last • lid/libuser-lid • logname • members • users • whoami • who • w
+WireGuard VPN	Alpine • CentOS 8 • Debian 10 • Firewall • Ubuntu 20.04
+
+2 comments… add one
+noodlesJun 4, 2021 @ 11:41
+Are you sure that “type -a dig1” is correct to check if dig is installed?
+
+reply link
+🐧 Vivek GiteJun 8, 2021 @ 11:48
+:( Fixed it. Thank you.
