@@ -1,0 +1,75 @@
+Sqlmap is an awesome tool that automates SQL Injection discovery and exploitation processes. I normally use it for exploitation only because I prefer manual detection in order to avoid stressing the web server or being blocked by IPS/WAF devices.
+
+Below I provide a basic overview of sqlmap and some configuration tweaks for finding trickier injection points.
+
+Basics
+Using sqlmap for classic SQLi is very straightforward:
+
+./sqlmap.py -u 'http://mywebsite.com/page.php?vulnparam=hello'
+The target URL after the -u option includes a parameter vulnerable to SQLi (vulnparam). Sqlmap will run a series of tests and detect it very quickly. You can also explicitly tell sqlmap to only test specific parameters with the -p option. This is useful when the query contains various parameters, and you don't want sqlmap to test everyting. You can use the --data option to pass any POST parameters.
+
+To maximize successful detection and exploitation, I usually use the --headers option to pass a valid User-Agent header (from my browser for example). Finally, the --cookie option is used to specify any useful Cookie along with the queries (e.g. Session Cookie).
+
+Advanced Attack
+Sometimes sqlmap cannot find tricky injection points and some configuration tweaks are needed. In this example, I will use the Damn Vulnerable Web App (http://www.dvwa.co.uk/), a deliberately insecure web application used for educational purposes. It uses PHP and a MySQL database. I also customized the source code to simulate a complex injection point. Here is the source of the php file responsible for the Blind SQL Injection exercise located at /[install_dir]/dvwa/vulnerabilities/sqli_blind/source/low.php:
+
+<?phpif (isset($_GET['Submit'])) {        // Retrieve data        $id = $_GET['id'];        if (!preg_match('/-BR$/', $id))                $html .= '<pre><h2>Wrong ID format</h2></pre>';        else {                $id = str_replace("-BR", "", $id);                $getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'";                 $result = mysql_query($getid); // Removed 'or die' to suppress mysql errors                $num = @mysql_numrows($result); // The '@' character suppresses errors making the injection 'blind'                if ($num > 0)                        $html .= '<pre><h2>User exists!</h2></pre>';                else                        $html .= '<pre><h2>Unknown user!</h2></pre>';        }}?>
+Basically, this code will receive an ID compounded of a numerical value followed by the string "-BR". The application will first validate whether this string is present and will extract the numerical value. Then, it concatenates this value to the SQL query used to check if it is a valid user ID and returns the result ("User exists!"or "Unknown user!"):
+
+Existing user ID:
+Sqlmap-01
+
+Non-existing user ID:
+Sqlmap-02
+
+This page is clearly vulnerable to SQL Injection but due to the string manipulation routine before the actual SQL command, sqlmap is unable to find it:
+
+./sqlmap.py --headers="User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:25.0) Gecko/20100101 Firefox/25.0" --cookie="security=low; PHPSESSID=oikbs8qcic2omf5gnd09kihsm7" -u 'http://localhost/dvwa/vulnerabilities/sqli_blind/?id=1-BR&Submit=Submit#' --level=5 risk=3 -p id
+I'm using a valid User-Agent and an authenticated Session Cookie. I'm also forcing sqlmap to test the "id" parameter with the -p option. Even when I set the level and risk of tests to their maximum, sqlmap is not able to find it:
+
+Sqlmap-05
+
+To pass the validation and successfully exploit this SQLi, we must inject our payload between the numerical value and the "-BR" suffix. This is a typical Blind SQL Injection instance and I'm lazy, so I don't want to exploit it manually. For more information about this kind of SQLi, please check this link: https://www.owasp.org/index.php/Blind_SQL_Injection.
+
+A valid query (True):
+http://localhost/dvwa/vulnerabilities/sqli_blind/?id=1%27+AND+1=1+%23-BR&Submit=Submit#
+A non-valid query (False):
+http://localhost/dvwa/vulnerabilities/sqli_blind/?id=1%27+AND+1=0+%23-BR&Submit=Submit#
+Note that we are URL-encoding special characters because the parameter is located in the URL. The decoded string is: id=1' AND 1=1 #-BR
+
+Sqlmap Tweaking
+How to force sqlmap to inject there?
+
+Well, the first idea is to use the --suffix option with the value "-BR" and set "id=1" in the query. It will force sqlmap to add this value after every query. Let's try it with debug information (-v3 option):
+
+./sqlmap.py --headers="User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:25.0) Gecko/20100101 Firefox/25.0" --cookie="security=low; PHPSESSID=oikbs8qcic2omf5gnd09kihsm7" -u 'http://localhost/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#' --level=5 risk=3 -p id --suffix="-BR" -v3
+Sqlmap-03
+
+I'm still not having any luck.
+
+To check what's going on, we can increase the debug level or set the --proxy="http://localhost:8080" option to point to your favorite web proxy. It appears sqlmap does not add comments when a suffix is passed to the command line. So every query looks like this: id=1' AND 1=0 -BR. Obviously, it is not working.
+
+Below is how you should handle this situation.
+
+The file located at "sqlmap/xml/payloads.xml" contains all the tests sqlmap will perform. It is an XML file and you can add your proper tests to it. As this is a boolean-based blind SQLi instance, I am using the test called "AND boolean-based blind - WHERE or HAVING clause (MySQL comment)" as a template and modifying it. Here is my new test I added to my payload.xml file:
+
+<test>    <title>AND boolean-based blind - WHERE or HAVING clause (Forced MySQL comment)</title>    <stype>1</stype>    <level>1</level>    <risk>1</risk>    <clause>1</clause>    <where>1</where>    <vector>AND [INFERENCE] #</vector>    <request>        <payload>AND [RANDNUM]=[RANDNUM] #</payload>    </request>    <response>        <comparison>AND [RANDNUM]=[RANDNUM1] #</comparison>    </response>    <details>        <dbms>MySQL</dbms>    </details></test>
+This test simply forces the use of the # character (MySQL comment) in every payload. The original test was using the <comment> tag as a sub-tag of the <request> tag. As we saw, it is not working with suffixes. Now we explicitly want this special character included at the end of every request, before the "-BR" suffix. A detailed description of the available options is included in the payload.xml file, but here is a summary of the settings I used:
+
+<title>: the title… duh.
+<stype>: type of test, 1 means boolean-based blind SQL injection.
+<level>: level of this test, set to 1 (can be set to anything you want as long as you set the right --level option in the command line).
+<risk>: risk of this test (like the <level> tag, can be set to anything you want as long as you set the right --risk option in the command line).
+<clause>: in which clause this will work, 1 means WHERE or HAVING clauses.
+<where>: where to insert the payload, 1 means appending the payload to the parameter original value.
+<vector>: the payload used for exploitation and also used to check if the injection point is a false positive.
+<request>: the payload that will be injected and should trigger a True condition (e.g. ' AND 1=1 #). Here the sub-tag <payload> has to be used.
+<response>: the payload that will be injected and should trigger a False condition (e.g. ' AND 1=0 #). Here the sub-tag <comparison> has to be used.
+<details>: set the database in used: MySQL. Here the sub-tag <dbms> has to be used.
+Let's see if this works:
+
+Sqlmap-04
+
+Great! Now we can easily exploit this with sqlmap.
+
+sqlmap is a very powerful tool and highly customizable, I really recommend it if you're not already using it. It can save you a lot of time during a penetration test.
