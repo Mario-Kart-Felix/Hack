@@ -1,0 +1,13 @@
+Collaborative Vulnerability Metadata Acceptance Process (CVMAP)
+Traditionally, the NVD has been responsible for providing assorted metadata to CVE records after they have been published to the CVE List.
+The data types currently provided by NVD staff are:
+Common Vulnerability Scoring System v3.1 (CVSS v3.1) 
+Common Vulnerability Scoring System v2.0 (CVSS v2.0)
+Common Weakness Enumerations (CWE)
+Common Platform Enumeration (CPE) Configurations
+Reference Tags
+These data types are referred to as submission categories within CVMAP.
+ 
+As the CVE program has matured and evolved over time, a growing volume of CVE publication has shown that new systems of maintenance are needed to provide these data points in a timely fashion while maintaining consistency and quality. To support this need the NVD has initiated a new program for the submission of CVE metadata from CVE Numbering Authorities (CNAs) and Authorized Data Providers (ADPs) dubbed "CVMAP". Driven by data provided to the CVE List by CNAs and ADPs the NVD will assess all information provided and associate metadata, if the information provided is consistent with the NVD staff assessment the data providers will be able to increase their acceptance level for the submission category provided. Once a data provider reaches the acceptance level of Provider, their information will instead be audited less often and immediately published to the website and data feeds. This program will result in more consistent practices across the information security community when providing standards and text-based information, alleviate the strain caused by the growing volume of CVE publications on NVD staff and continue to retain consistency and quality of information for all consumers of CVE data.
+
+For more detailed information regarding CVMAP please review NIST.IR 8246 and the additional pages listed above.
