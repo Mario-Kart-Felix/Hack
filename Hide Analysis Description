@@ -1,0 +1,73 @@
+ Hide Analysis DescriptionCVSS 3.x Severity and Metrics:
+
+NIST CVSS score
+NIST: NVD
+Base Score: 9.9 CRITICAL
+Vector:  CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H
+
+
+NVD Analysts use publicly available information to associate vector strings and CVSS scores. We also display any CVSS information provided within the CVE List from the CNA.
+
+Note: NVD Analysts have published a CVSS score for this CVE based on publicly available information at the time of analysis. The CNA has not provided a score within the CVE List.
+
+References to Advisories, Solutions, and Tools
+By selecting these links, you will be leaving NIST webspace. We have provided these links to other web sites because they may have information that would be of interest to you. No inferences should be drawn on account of other sites being referenced, or not, from this page. There may be other web sites that are more appropriate for your purpose. NIST does not necessarily endorse the views expressed, or concur with the facts presented on these sites. Further, NIST does not endorse any commercial products that may be mentioned on these sites. Please address comments about this page to nvd@nist.gov.
+
+Hyperlink	Resource
+https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2021-28476	Patch  Vendor Advisory 
+Weakness Enumeration
+CWE-ID	CWE Name	Source
+NVD-CWE-noinfo	Insufficient Information	cwe source acceptance level NIST  
+Known Affected Software Configurations Switch to CPE 2.2
+Configuration 1 ( hide )
+  cpe:2.3:o:microsoft:windows_10:-:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:20h2:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:1607:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:1803:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:1809:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:1909:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_10:2004:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_7:-:sp1:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_8.1:-:*:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2008:r2:sp1:*:*:*:*:x64:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2012:-:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2012:r2:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2016:-:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2016:20h2:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2016:1909:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2016:2004:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+  cpe:2.3:o:microsoft:windows_server_2019:-:*:*:*:*:*:*:*
+   Show Matching CPE(s)
+
+ Denotes Vulnerable Software
+Are we missing a CPE here? Please let us know.
+
+Change History
+1 change records found show changes
+QUICK INFO
+CVE Dictionary Entry:
+CVE-2021-28476
+NVD Published Date:
+05/11/2021
+NVD Last Modified:
+05/14/2021
+Source:
+Microsoft Corporation
