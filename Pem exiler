@@ -1,0 +1,118 @@
+ExCrypto v0.10.0
+ExPublicKey
+API module for public-key infrastructure.
+
+ Description
+Mostly wrappers Erlang' :public_key module, to help simplify using public/private key encryption in Elixir.
+
+Link to this section Summary
+Functions
+decrypt_private(cipher_text, private_key, opts \\ [])
+decrypt_public(cipher_text, public_key, opts \\ [])
+encrypt_private(clear_text, private_key, opts \\ [])
+encrypt_public(clear_text, public_key, opts \\ [])
+generate_key()
+generate_key(bits)
+generate_key(bits, public_exp)
+generate_key(type, bits, public_exp)
+Generate a new key. Note: To ensure Backwards compatibility when generating rsa keys on OTP < 20, we fall back to openssl via System.cmd
+
+generate_key(atom, bits, public_exp, bool)
+load(file_path, passphrase \\ nil)
+Loads PEM string from the specified file path and returns a ExPublicKey.RSAPrivateKey or a ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate
+
+load!(file_path, passphrase \\ nil)
+Loads PEM string from the specified file path and returns a ExPublicKey.RSAPrivateKey or a ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate. Identical to ExPublicKey.load/2, except that load! raises an ExCrypto.Error when an exception occurs
+
+loads(pem_string, passphrase \\ nil)
+Converts a PEM string into an ExPublicKey.RSAPrivateKey or an ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate
+
+loads!(pem_string, passphrase \\ nil)
+Converts a PEM string into an ExPublicKey.RSAPrivateKey or an ExPublicKey.RSAPublicKey key. Identical to ExPublicKey.loads/2, except that loads! raises an ExCrypto.Error when an exception occurs
+
+normalize_error(kind, error)
+pem_encode(key)
+Encode a key into a PEM string. To decode, use ExPublicKey.loads/1
+
+public_key_from_private_key(private_key)
+Extract the public part of a private string and return the results as a ExPublicKey.RSAPublicKey struct
+
+sign(msg, private_key)
+sign(msg, sha, private_key)
+verify(msg, signature, public_key)
+verify(msg, sha, signature, public_key)
+Link to this section Functions
+Link to this function
+decrypt_private(cipher_text, private_key, opts \\ [])
+Link to this function
+decrypt_public(cipher_text, public_key, opts \\ [])
+Link to this function
+encrypt_private(clear_text, private_key, opts \\ [])
+Link to this function
+encrypt_public(clear_text, public_key, opts \\ [])
+Link to this function
+generate_key()
+Link to this function
+generate_key(bits)
+Link to this function
+generate_key(bits, public_exp)
+Link to this function
+generate_key(type, bits, public_exp)
+Generate a new key. Note: To ensure Backwards compatibility when generating rsa keys on OTP < 20, we fall back to openssl via System.cmd.
+
+ Example
+{:ok, rsa_priv_key} = ExPublicKey.generate_key(:rsa, 2048)
+Link to this function
+generate_key(atom, bits, public_exp, bool)
+Link to this function
+load(file_path, passphrase \\ nil)
+Loads PEM string from the specified file path and returns a ExPublicKey.RSAPrivateKey or a ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate.
+
+ Examples
+{:ok, key} = ExPublicKey.load("/file/to/cert.pem")
+
+{:ok, key} = ExPublicKey.load("/file/to/cert.pem", "pem_password")
+Link to this function
+load!(file_path, passphrase \\ nil)
+Loads PEM string from the specified file path and returns a ExPublicKey.RSAPrivateKey or a ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate. Identical to ExPublicKey.load/2, except that load! raises an ExCrypto.Error when an exception occurs.
+
+ Examples
+key = ExPublicKey.load("/file/to/cert.pem")
+
+key = ExPublicKey.load("/file/to/cert.pem", "pem_password")
+Link to this function
+loads(pem_string, passphrase \\ nil)
+Converts a PEM string into an ExPublicKey.RSAPrivateKey or an ExPublicKey.RSAPublicKey key. Optionally, a passphrase can be given to decode the PEM certificate.
+
+ Examples
+{:ok, key} = ExPublicKey.loads(pem_string)
+
+{:ok, key} = ExPublicKey.loads(pem_string, "pem_password")
+Link to this function
+loads!(pem_string, passphrase \\ nil)
+Converts a PEM string into an ExPublicKey.RSAPrivateKey or an ExPublicKey.RSAPublicKey key. Identical to ExPublicKey.loads/2, except that loads! raises an ExCrypto.Error when an exception occurs.
+
+ Example
+key = ExPublicKey.loads!(pem_string)
+Link to this function
+normalize_error(kind, error)
+Link to this function
+pem_encode(key)
+Encode a key into a PEM string. To decode, use ExPublicKey.loads/1
+
+ Example
+{:ok, pem_string} = ExPublicKey.pem_encode(key)
+Link to this function
+public_key_from_private_key(private_key)
+Extract the public part of a private string and return the results as a ExPublicKey.RSAPublicKey struct.
+
+ Example
+{:ok, rsa_pub_key} = ExPublicKey.public_key_from_private_key(rsa_priv_key)
+Link to this function
+sign(msg, private_key)
+Link to this function
+sign(msg, sha, private_key)
+Link to this function
+verify(msg, signature, public_key)
+Link to this function
+verify(msg, sha, signature, public_key)
