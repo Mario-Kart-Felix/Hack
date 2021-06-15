@@ -1,0 +1,109 @@
+Recently, an organization in the public sector discovered that one of their internet-facing servers was misconfigured and allowed attackers to upload a web shell, which let the adversaries gain a foothold for further compromise. The organization enlisted the services of Microsoft’s Detection and Response Team (DART) to conduct a full incident response and remediate the threat before it could cause further damage.
+
+DART’s investigation showed that the attackers uploaded a web shell in multiple folders on the web server, leading to the subsequent compromise of service accounts and domain admin accounts. This allowed the attackers to perform reconnaissance using net.exe, scan for additional target systems using nbtstat.exe, and eventually move laterally using PsExec.
+
+The attackers installed additional web shells on other systems, as well as a DLL backdoor on an Outlook Web Access (OWA) server. To persist on the server, the backdoor implant registered itself as a service or as an Exchange transport agent, which allowed it to access and intercept all incoming and outgoing emails, exposing sensitive information. The backdoor also performed additional discovery activities as well as downloaded other malware payloads. In addition, the attackers sent special emails that the DLL backdoor interpreted as commands.
+
+
+
+Figure 1. Sample web shell attack chain
+
+The case is one of increasingly more common incidents of web shell attacks affecting multiple organizations in various sectors. A web shell is a piece of malicious code, often written in typical web development programming languages (e.g., ASP, PHP, JSP), that attackers implant on web servers to provide remote access and code execution to server functions. Web shells allow adversaries to execute commands and to steal data from a web server or use the server as launch pad for further attacks against the affected organization.
+
+With the use of web shells in cyberattacks on the rise, Microsoft’s DART, the Microsoft Defender ATP Research Team, and the Microsoft Threat Intelligence Center (MSTIC) have been working together to investigate and closely monitor this threat.
+
+Web shell attacks in the current threat landscape
+Multiple threat actors, including ZINC, KRYPTON, and GALLIUM, have been observed utilizing web shells in their campaigns. To implant web shells, adversaries take advantage of security gaps in internet-facing web servers, typically vulnerabilities in web applications, for example CVE-2019-0604 or CVE-2019-16759.
+
+In our investigations into these types of attacks, we have seen web shells within files that attempt to hide or blend in by using names commonly used for legitimate files in web servers, for example:
+
+index.aspx
+fonts.aspx
+css.aspx
+global.aspx
+default.php
+function.php
+Fileuploader.php
+help.js
+write.jsp
+31.jsp
+Among web shells used by threat actors, the China Chopper web shell is one of the most widely used. One example is written in ASP:
+
+
+
+We have seen this malicious ASP code within a specially crafted file uploaded to web servers:
+
+
+
+Figure 2. Specially crafted image file with malicious ASP code
+
+Another China Chopper variant is written in PHP:
+
+
+
+Meanwhile, the KRYPTON group uses a bespoke web shell written in C# within an ASP.NET page:
+
+
+
+Figure 3. Web shell written in C# within an ASP.NET page
+
+Once a web shell is successfully inserted into a web server, it can allow remote attackers to perform various tasks on the web server. Web shells can steal data, perpetrate watering hole attacks, and run other malicious commands for further compromise.
+
+Web shell attacks have affected a wide range of industries. The organization in the public sector mentioned above represents one of the most common targeted sectors.
+
+Aside from exploiting vulnerabilities in web applications or web servers, attackers take advantage of other weaknesses in internet-facing servers. These include the lack of the latest security updates, antivirus tools, network protection, proper security configuration, and informed security monitoring. Interestingly, we observed that attacks usually occur on weekends or during off-hours, when attacks are likely not immediately spotted and responded to.
+
+Unfortunately, these gaps appear to be widespread, given that every month, Microsoft Defender Advanced Threat Protection (ATP) detects an average of 77,000 web shell and related artifacts on an average of 46,000 distinct machines.
+
+
+
+Figure 3: Web shell encounters 
+
+Detecting and mitigating web shell attacks
+Because web shells are a multi-faceted threat, enterprises should build comprehensive defenses for multiple attack surfaces. Microsoft Threat Protection provides unified protection for identities, endpoints, email and data, apps, and infrastructure. Through signal-sharing across Microsoft services, customers can leverage Microsoft’s industry-leading optics and security technologies to combat web shells and other threats.
+
+Gaining visibility into internet-facing servers is key to detecting and addressing the threat of web shells. The installation of web shells can be detected by monitoring web application directories for web script file writes. Applications such as Outlook Web Access (OWA) rarely change after they have been installed and script writes to these application directories should be treated as suspicious.
+
+After installation, web shell activity can be detected by analyzing processes created by the Internet Information Services (IIS) process w3wp.exe. Sequences of processes that are associated with reconnaissance activity such as those identified in the alert screenshot (net.exe, ping.exe, systeminfo.exe, and hostname.exe) should be treated with suspicion. Web applications such as OWA run from well-defined Application Pools. Any cmd.exe process execution by w3wp.exe running from an application pool that doesn’t typically execute processes such as ‘MSExchangeOWAAppPool’ should be treated as unusual and regarded as potentially malicious.
+
+Microsoft Defender ATP exposes these behaviors that indicate web shell installation and post-compromise activity by analyzing script file writes and process executions. When alerted of these activities, security operations teams can then use the rich capabilities in Microsoft Defender ATP to investigate and resolve web shell attacks.
+
+
+
+
+
+Figure 4. Sample Microsoft Defender ATP alerts related to web shell attacks
+
+
+
+Figure 5. Microsoft Defender ATP alert process tree
+
+As in most security issues, prevention is critical. Organizations can harden systems against web shell attacks by taking these preventive steps:
+
+Identify and remediate vulnerabilities or misconfigurations in web applications and web servers. Deploy latest security updates as soon as they become available.
+Audit and review logs from web servers frequently. Be aware of all systems you expose directly to the internet.
+Utilize the Windows Defender Firewall, intrusion prevention devices, and your network firewall to prevent command-and-control server communication among endpoints whenever possible. This limits lateral movement as well as other attack activities.
+Check your perimeter firewall and proxy to restrict unnecessary access to services, including access to services through non-standard ports.
+Enable cloud-delivered protection to get the latest defenses against new and emerging threats.
+Educate end users about preventing malware infections. Encourage end users to practice good credential hygiene—limit the use of accounts with local or domain admin privileges.
+ 
+
+ 
+
+Detection and Response Team (DART)
+
+Microsoft Defender ATP Research Team
+
+Microsoft Threat Intelligence Center (MSTIC)
+
+ 
+
+Filed under:
+Cybersecurity,
+Endpoint security,
+Incident response,
+Microsoft Defender Advanced Threat Protection,
+Microsoft Detection and Response Team (DART),
+Microsoft security intelligence,
+Security management,
+Threat protection
