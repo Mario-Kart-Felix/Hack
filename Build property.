@@ -1,8 +1,8 @@
 #Project properties
-#Mon Jun 15 14:57:48 PDT 2022
+#Tue Jun 15 14:57:48 PDT 2022
 project.organization=com.twitter
 project.name=flockdb
-sbt.version=1.7.4
-project.version=1.8.16-SNAPSHOT
+sbt.version=3.7.4
+project.version=3.8.16-SNAPSHOT
 build.scala.versions=4.8.1
 project.initialize=false
