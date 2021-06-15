@@ -1,0 +1,268 @@
+Bypassing VirtualBox Process Hardening on Windows
+Posted by James Forshaw, Project Zero
+
+Processes on Windows are securable objects, which prevents one user logged into a Windows machine from compromising another user’s processes. This is a pretty important security feature, at least from the perspective of a non-administrator user. The security prevents a non-administrator user from compromising the integrity of an arbitrary process. This security barrier breaks down when trying to protect against administrators, specifically administrators with Debug privilege, as enabling this privilege allows the administrator to open any process regardless of the security applied to it.
+
+There are cases where applications or the operating system want to actively defend processes from users such as administrators or even, in some cases, the same user as the running process who’d normally have full access. Protecting the processes is a pretty hard challenge if done entirely from user mode applications. Therefore many solutions use kernel support to perform the protection. In the majority of cases these sorts of techniques still have flaws, which we can exploit to compromise the “protected” process.
+
+This blog post will describe the implementation of Oracle’s VirtualBox protected process and detail three different, but now fixed, ways of bypassing the protection and injecting arbitrary code into the process. The techniques I’ll present can equally be applied to similar implementations of “protected” processes in other applications.
+Oracle VirtualBox Process Hardening
+Protecting processes entirely in user mode is pretty much impossible, there are just too many ways of injecting content into a process. This is especially true when the process you’re trying to protect is running under the same context as the user you’re trying to block. An attacker could, for example, open a handle to the process with PROCESS_CREATE_THREAD access and directly inject a new thread. Or they could open a thread in the process with THREAD_SET_CONTEXT access and directly change the Instruction Pointer to jump to an arbitrary location. These are just the direct attacks. The attacker could also modify the registry or environment the process is running under, then force the process to load arbitrary COM objects, or Windows Hooks. The list of possible modifications is almost endless.
+
+Therefore, VirtualBox (VBOX) enlists the help of the kernel to try to protect its processes. The source code refers to this as Process Hardening. VBOX tries to protect the processes from the same user the process is running under. A detailed rationale and technical overview is provided in source code comments. The TL;DR; is the protection gates access to the VBOX kernel drivers, which due to design have a number of methods which can be used to compromise the kernel, or at least elevate privileges. This is why VBOX tries to prevent the current user compromising the process, getting access to the VBOX kernel driver would be a route to Kernel or System privileges. As we’ll see though while some protections also prevent administrators compromising the processes that’s not the aim of the hardening code.
+
+Multiple examples of issues with the driver and protection from device access were discovered by my colleague Jann in VBOX on Linux. On Linux, VBOX limits access to the VBOX driver to root only, and uses SUID binaries to allow the VBOX user processes to get access to the driver before dropping privileges. On Windows instead of SUID binaries the VBOX driver uses kernel APIs to try to stop users and administrators opening protected processes and injecting code.
+
+The core of the kernel component is in the Support\win\SUPDrv-win.cpp file. This code registers with two callback mechanisms supported by modern Windows kernels:
+PsSetCreateProcessNotifyRoutineEx - Driver is notified when a new process is created.
+ObRegisterCallback - Driver is notified when Process and Thread handles are created or duplicated.
+The notification from PsSetCreateProcessNotifyRoutineEx is used to configure the protection structures for a new process. When the process subsequently tries to open a handle to the VBOX driver the hardening will only permit access after the following verification steps are performed in the call to supHardenedWinVerifyProcess:
+
+Ensure there are no debuggers attached to the process.
+Ensure there is only a single thread in the process, which should be the one opening the driver to prevent in-process races.
+Ensure there are no executable memory pages outside of a small set of permitted DLLs.
+Verify the signatures of all loaded DLLs.
+Check the main executable’s signature and that it is of a permitted type of executable (e.g. VirtualBox.exe).
+
+Signature verification in the kernel is done using custom runtime code compiled into the driver. Only a limited set of Trusted Roots are permitted to be verified at this step, primarily Microsoft’s OS and Authenticode certificates as well as the Oracle certificate that all VBOX binaries are signed with. You can find the list of permitted certificates in the source repository.
+
+The ObRegisterCallback notification is used to limit the maximum access any other user process on the system can be granted to the protected process. The ObRegisterCallback API was designed for Anti-Virus to protect processes from being injected into or terminated by malicious code. VBOX uses a similar approach and limits any handle to the protected process to the following access rights:
+
+PROCESS_TERMINATE
+PROCESS_VM_READ
+PROCESS_QUERY_INFORMATION
+PROCESS_QUERY_LIMITED_INFORMATION
+PROCESS_SUSPEND_RESUME
+DELETE
+READ_CONTROL
+SYNCHRONIZE
+
+The permitted access rights give the user most of the typical rights they’d expect, such as being able to read memory, synchronize to the process and terminate it but does not allow injecting new code into the process. Similarly, access to threads is restricted to the following access rights to prevent modification of a thread’s context or similar attacks.
+
+THREAD_TERMINATE
+THREAD_GET_CONTEXT
+THREAD_QUERY_INFORMATION
+THREAD_QUERY_LIMITED_INFORMATION
+DELETE
+READ_CONTROL
+SYNCHRONIZE
+
+We can verify this access limitation by opening the VirtualBox process and one of its threads and see what access rights we’re granted. For example the following picture highlights the process and thread granted access.
+
+open_proc.PNG
+
+While the kernel callbacks prevent direct modification of the process as well as a user trying to compromise the integrity of the process at startup they do very little against runtime DLL injection such as through COM. The hardening implementation needs to decide on what modules it’ll allow to be loaded into the process. The decision, fundamentally, is based on Authenticode code signing.
+
+There are mitigation options to enable loading only Microsoft signed binaries (such as PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY). However, this policy isn’t very flexible. Therefore, protected VBOX processes install hooks to a couple of internal functions in user-mode to verify the integrity of any DLL which is being loaded into memory. The hooked functions are:
+
+LdrLoadDll - Called to load a DLL into memory.
+NtCreateSection - Called to create an Image Section object for a PE file on disk.
+LdrRegisterDllNotification - This is a quasi-officially supported callback which notifies the application when a new DLL is loaded or unloaded.
+
+These hooks expand the permitted set of signed DLLs which can be loaded. The kernel signature verification is okay for bootstrapping the process as only Oracle and Microsoft code should be present. However, when it comes to running a non-trivial application ( VirtualBox.exe is certainly non-trivial) you’re likely to need to load third-party signed code such as GPU drivers. As the hooks are in user mode it’s easier to call the system WinVerifyTrust API which will verify certificate chains using the system certificate stores as well as handling the verification of files signed in a Catalog file.
+
+If the DLL being loaded doesn’t meet VBOX’s expected criteria for signing then the user-mode hooks will reject loading that DLL. VBOX still doesn't completely trust the user; WinVerifyTrust will chain certificates back to a root certificate in the user’s CA certificates. However, VBOX will only trust system CA certificates. As a non-administrator cannot add a new trusted root certificate to the system’s list of CA certificates this should severely limit the injection of malicious DLLs.
+
+You can get a real code signing certificate which should also be trusted, but the assumption is malicious code wouldn’t want to go down that route. Even if the code is signed the loader also checks that the DLL file is owned by the TrustedInstaller user. This is checked in supHardNtViCheckIsOwnedByTrustedInstallerOrSimilar. A normal user should not be able to change the owner of a file to anything but themselves, therefore it should limit the impact of the behavior to allow any signed file to load. 
+
+The VBOX code does have a function which is supposed to restrict what certificates are permitted supR3HardenedWinIsDesiredRootCA as roots. In official builds the function’s whitelist of specific CAs is commented out. There’s a blacklist of certificates, however, unless your company is called “U.S. Robots and Mechanical Men, Inc” the blacklist won’t affect you.
+
+Even with all this protection the process isn’t secure against an administrator. While an administrator can’t bypass the security on opening the process, they can install a local machine Trusted Root CA certificate and sign a DLL, set its owner and force it to be loaded. This will bypass the image verification and load into the verified VBOX process. 
+
+In summary the VBOX hardening is attempting to provide the following protections:
+Ensure that no code is injected into protected binaries during initialization.
+Prevent user processes from opening “writable” handles to protected processes or threads which would allow arbitrary code injection.
+Prevent injection of untrusted DLLs through normal loading routes such as COM.
+
+This whole process is likely to have some bugs and edge cases. There’s so many different verification checks which must all fit together. So, assuming we don’t want to get a code signing certificate and we don’t have administrator rights how can we get arbitrary code running inside a protected VBOX process? We’ll focus primarily on the third protection in the list, as this is perhaps the most complex part of the protection and therefore is likely to have the most issues.
+Exploiting the Chain-of-Trust in COM Registration
+The first bug I’m going to describe was fixed as CVE-2017-3563 in VBOX version 5.0.38/5.1.20. This issue exploits the chain-of-trust for DLL loading to trick VBOX into loading Microsoft signed DLLs which just happen to allow untrusted arbitrary code execution.
+
+If you run Process Monitor against the protected VBOX process you’ll notice that it uses COM, specifically it uses the VirtualBoxClient class which is implemented in the VBoxC.dll COM server.
+
+vbox_client.PNG
+
+The nice thing about COM server registration, at least from the perspective of an attacker, is the registration for a COM object can be in one of two places, the user’s registry hive, or the local machine registry hive. For reasons of compatibility the user’s hive is checked first, before falling back to the local machine hive. Therefore it’s possible to override a COM registration with a normal user’s permission, so when an application tries to load the designated COM object the application will instead load whatever DLL we’ve overridden it with.
+
+Hijacking COM objects is not a new technique, it’s been known for many years especially for the purposes of Malware persistence. It’s seen a resurgence of late because of the renewed interest in all things COM. However, it’s rare that COM hijacking is of importance for elevation of privilege outside of UAC bypasses. 
+
+As an aside, the connection between UAC and COM hijacking is the COM runtime actively tries to prevent the hijack being used as an EoP route by disabling certain User registry lookups if the current process is elevated. Of course it wasn’t always successful. This behavior only makes sense if you view UAC through the prism of it being a defendable security boundary, which Microsoft categorically claim it’s not and never was. For example this blog post from early 2007 specifically states this behavior is to prevent Elevation of Privilege. I think the COM lookup behavior is one of the clearest indicators that UAC was originally designed to be a security boundary. It failed to meet the security bar and so was famously retconned into helping “developers” write better code.
+
+If we could replace the COM registration with our own code we should be able to get code execution inside the hardened process. In theory all the hardening signing checks should stop us from loading untrusted code. In research, it’s always worth trying something which you believe should fail just in case as sometimes you get a nice surprise. At minimum it’ll give you insight into how the protection really works. I registered a COM object to hijack the VirtualBoxClient class in the user’s hive and pointed it at an unsigned DLL (Full Disclosure, I used an admin account to tweak the Owner to TrustedInstaller just to test). When I tried to start a Virtual Machine I got the following dialog.
+
+vbox_com_registration_fail.PNG
+
+It’s possible that I just made a mistake in the COM registration, however testing the COM object in a separate application worked as expected. Therefore this error is likely a result of failing to load the DLL. Fortunately, VBOX is generous and enables by default a log of all Process Hardening events. It’s named VBoxHardening.log and is located in the Logs folder in the Virtual Machine you tried to start. Searching for the name of the DLL we find the following entries (heavily modified for brevity):
+
+supHardenedWinVerifyImageByHandle: -> -22900 (c:\dummy\testdll.dll) 
+supR3HardenedScreenImage/LdrLoadDll: c:\dummy\testdll.dll: Not signed.
+supR3HardenedMonitor_LdrLoadDll: rejecting 'c:\dummy\testdll.dll'
+supR3HardenedMonitor_LdrLoadDll: returns rcNt=0xc0000190
+
+So clearly our test DLL isn’t signed and so the LdrLoadDll hook rejects it. The LdrLoadDll hook returns an error code which propagates back up to the COM DLL loader, which results in COM thinking the class doesn’t exist. 
+
+While it’s not surprising that it wasn’t as simple as just specifying our own DLL (and don’t forget we cheated with setting the Owner) it at least gives us hope as this result means the VBOX process will use our hijacked COM registration. All we need therefore is a COM object which meets the following criteria:
+
+It’s signed by a trusted certificate.
+It’s owned by TrustedInstaller.
+When loaded will do something that allows for arbitrary code execution in the process.
+
+Criteria 1 and 2 are easy to meet, any Microsoft COM object on the system is signed by a trusted certificate (one of Microsoft’s publisher certificates) and is almost certainly owned by TrustedInstaller. However, criteria 3 would seem much more difficult to meet, a COM object is usually implemented inside the DLL and we can’t modify the DLL itself, otherwise it would no longer be signed. It just so happens that there is a Microsoft signed COM object installed by default which will allow us to meet criteria 3, Windows Script Components (WSC).
+
+WSC, also sometimes called Scriptlets are also having a good run at the moment. They can be used as an AppLocker bypass as well as being loaded from HTTP URLs. What’s of most interest in this case is they can also be registered as a COM object. 
+
+A registered WSC consists of two parts:
+The WSC runtime scrobj.dll which acts as the in-process COM server.
+A file which contains the implementation of the Scriptlet in a compatible scripting language.
+
+When an application tries to load the registered class scrobj.dll gets loaded into memory. The COM runtime requests a new object of the required class which causes the WSC runtime to go back to the registry to lookup the URL to the implementation Scriptlet file. The WSC runtime then loads the Scriptlet file and executes the embedded script contained in the file in-process. The key here is that as long as scrobj.dll (and any associated script language libraries such as JScript.dll) are valid signed DLLs from VBOX’s perspective then the script code will run as it can never be checked by the hardening code. This would get arbitrary code running inside the hardened process. First let’s check that scrobj.dll is likely to be allowed to be loaded by VBOX. The following screenshot shows the DLL is both signed by Microsoft and is also owned by TrustedInstaller.
+
+scrobj_signed.PNG
+
+So what does a valid Scriptlet file look like? It’s a simple XML file, I’m not going to go into much detail about what each XML element means, other than to point out the script block which will execute arbitrary JScript code. In this case all this Scriptlet will do when loaded is start the Calculator process. 
+
+<scriptlet>
+  <registration
+    description ="Component"
+    progid="Component"
+    version="1.00"
+    classid="{DD3FC71D-26C0-4FE1-BF6F-67F633265BBA}"
+  />
+  <public/>
+  <script language = "JScript" >
+  <![CDATA[
+  new ActiveXObject('WScript.Shell').Exec('calc');
+  ]]>
+  </script>
+</scriptlet>
+
+If you’re written much code in JScript or VBScript you might now notice a problem, these languages can’t do that much unless it’s implemented by a COM object. In the example Scriptlet file we can’t create a new process without loading the WScript.Shell COM object and calling its Exec method. In order to talk to the VBOX driver, which is whole purpose of injecting code in the first place, we’d need a COM object which gives us that functionality. We can’t implement the code in another COM object as that wouldn’t pass the image signing checks we’re trying to bypass. Of course, there’s always memory corruption bugs in scripting engines but, as everyone already knows by now, I’m not a fan of exploiting memory corruptions so we need some other way of getting fully arbitrary code execution. Time to bring in the big guns, the .NET Framework.
+
+The .NET runtime loads code into memory using the normal DLL loading routines. We can’t therefore load a .NET DLL which isn’t signed into memory as that would still get caught by VBOX’s hardening code. However, .NET does support loading arbitrary code from an in-memory array using the Assembly::Load method and once loaded this code can basically act as if it was native code, calling arbitrary APIs and inspecting/modifying memory. As the .NET framework is signed by Microsoft all we need to do is somehow call the Load method from our Scriptlet file and we can get full arbitrary code running inside the process. 
+
+Where do we even start on achieving this goal? From a previous blog post it’s possible to expose .NET objects as COM objects through registration and by abusing Binary Serialization we can load arbitrary code from a byte array. Many core .NET runtime classes are automatically registered as COM objects which can be loaded and manipulated by a scripting engine. The big question can now be asked, is BinaryFormatter exposed as a COM object? 
+
+binaryformatter_com_object.PNG
+
+Why, yes it is. BinaryFormatter is a .NET object that a scripting engine can load and interact with via COM. We could now take the final binary stream from my previous post and execute arbitrary code from memory. In the previous blog post the execution of the untrusted code had to occur during deserialization, in this case we can interact with the results of deserialization in a script which can make the serialization gadgets we need much simpler.
+
+In the end I chose to deserialize a Delegate object which when executed by the script engine would load an Assembly from memory and return the Assembly instance. The script engine could then instantiate an instance of a Type in that Assembly and run arbitrary code. It does sound simple in principle, in reality there are a number of caveats. Rather than bog down this blog post with more detail than necessary the tool I used to generate the Scriptlet file, DotNetToJScript is available so you can read how it works yourself. Also the PoC is available on the issue tracker here. The chain from the JScript component to being able to call the VBOX driver looks something like the following:
+
+Full Chain (2).png
+
+
+I’m not going to go into what you can now do with the VBOX driver once you’ve got arbitrary code running the hardened process, that’s certainly a topic for another post. Although you might want to look at one of Jann’s issues which describes what you might do on Linux.
+
+How did Oracle fix the issue? They added a blacklist of DLLs which are not allowed to be loaded by the hardened VBOX process. The only DLL currently in that list is scrobj.dll. The list is checked after the verification of the file has taken place and covers both the current filename as well as the internal Original Filename in the version resources. This prevents you just renaming the file to something else, as the version resources are part of the signed PE data and so cannot be modified without invalidating the signature. In fairness to Oracle I’m not sure there was any other sensible way of blocking this attack vector other than a DLL blacklist.
+Exploiting User-Mode DLL Loading Behavior 
+The second bug I’m going to describe was fixed as CVE-2017-10204 in VBOX version 5.1.24. This issue exploits the behavior of the Windows DLL loader and some bugs in VBOX to trick the hardening code to allow an unverified DLL to be loaded into memory and executed.
+
+While this bug doesn’t rely on exploiting COM loading as such, the per-user COM registration is a convenient technique to get LoadLibrary called with an arbitrary path. Therefore we’ll continue to use the technique of hijacking the VirtualBoxClient COM object and just use the in-process server path as a means to load the DLL.
+
+LoadLibrary is an API with a number of well known, but strange behaviors. One of the more interesting from our perspective is the behavior with filename extensions. Depending on the extension the LoadLibrary API might add or remove the extension before trying to load the file. I can summarise it in a table, showing the file name as passed to LoadLibrary and the file it actually tries to load.
+
+Original File Name
+Loaded File Name
+c:\test\abc.dll
+c:\test\abc.dll
+c:\test\abc
+c:\test\abc.dll
+c:\test\abc.blah
+c:\test\abc.blah
+c:\test\abc.
+c:\test\abc
+
+I’ve highlighted in green the two important cases. These are the cases where the filename passed into LoadLibrary doesn’t match the filename which eventually gets loaded. The problem for any code trying to verify a DLL file before loading it is CreateFile doesn’t follow these rules so in the highlighted cases if you opened the file for signature verification using the original file name you’d verify a different file to the one which eventually gets loaded.
+
+In Windows there’s usually a clear separation between Kernel32 code, which tends to deal with the many weird behaviors Win32 has built up over the years and the “clean” NT layer exposed by the kernel through NTDLL. Therefore as LoadLibrary is in Kernel32 and LdrLoadDll (which is the function the hardening hooks) is in NTDLL then this weird extension behavior would be handled in the former. Let’s look at a very simplified version of LoadLibrary to see if that’s the case:
+
+HMODULE LoadLibrary(LPCWSTR lpLibFileName)
+{
+  UNICODE_STRING DllPath;
+  HMODULE ModuleHandle;
+  ULONG Flags = // Flags;
+
+  RtlInitUnicodeString(&DllPath, lpLibFileName);  
+  if (NT_SUCCESS(LdrLoadDll(DEFAULT_SEARCH_PATH, 
+      &Flags, &DllPath, &ModuleHandle))) {
+    return ModuleHandle;
+  }
+  return NULL;
+}
+
+We can see in this code that for all intents and purposes LoadLibrary is just a wrapper around LdrLoadDll. While it’s really more complex than that in reality the takeaway is that LoadLibrary does not modify the path it passes to LdrLoadDll in any way other than converting it to a UNICODE_STRING. Therefore perhaps if we specify a DLL to load without an extension VBOX will check the extension-less file for the signature but LdrLoadDll will instead load the file with the .DLL extension.
+
+Before we can test that we’ve got another problem to deal with, the requirement that the file is owned by TrustedInstaller. For the file we want VBOX to signature check all we need to do is give an existing valid, signed file a different filename. This is what hard links were created for; we can create a different name in a directory we control which actually links to a system file which is signed and also maintains its original security descriptor including the owner. The trouble with hard links is, as I described almost 2 years ago in a blog post, while Windows supports creating links to system files you can’t write to, the Win32 APIs, and by extension the easy to access “mklink” command in the CMD shell require the file be opened with FILE_WRITE_ATTRIBUTES access. Instead of using another application to create the link we’ll just copy the file, however the copy will no longer have the original security descriptor and so it’ll no longer be owned by TrustedInstaller. To get around that let’s look at the checking code to see if there’s a way around it.
+
+The main check for the Owner is in supHardenedWinVerifyImageByLdrMod. Almost the first thing that function does is call supHardNtViCheckIsOwnedByTrustedInstallerOrSimilar which we saw earlier. However as the comments above the check indicate the code will also allow files under System32 and WinSxS directories to not be owned by TrustedInstaller. This is a bus sized hole in the point of the check, as all we need is one writeable directory under System32. We can find some by running the Get-AccessibleFile cmdlet in my NtObjectManager PS module.
+
+accessible_dirs.PNG
+
+There are plenty to choose from, we’ll just pick the Tasks folder as it’s guaranteed to always be there. So the exploit should be as follows:
+
+Copy a signed binary to %SystemRoot%\System32\Tasks\Dummy\ABC
+Copy an unsigned binary to %SystemRoot%\System32\Tasks\Dummy\ABC.DLL
+Register a COM hijack pointing the in-process server to the signed file path from 1.
+
+If you try to start a Virtual Machine you’ll find that this trick works. The hardening code checks the ABC file for the signature, but LdrLoadDll ends up loading ABC.DLL. Just to check we didn’t just exploit something else let’s check the hardening log:
+
+\..\Tasks\dummy\ABC: Owner is not trusted installer
+\..\Tasks\dummy\ABC: Relaxing the TrustedInstaller requirement for this DLL (it's in system32).
+
+supHardenedWinVerifyImageByHandle: -> 0 (\..\Tasks\dummy\ABC)
+supR3HardenedMonitor_LdrLoadDll: pName=c:\..\tasks\dummy\ABC [calling]
+
+The first two lines indicate the bypass of the Owner check as we expected. The second two indicate it’s verified the ABC file and therefore will call the original LdrLoadDll, which ultimately will append the extension and try to load ABC.DLL instead. But, wait, how come the other checks in NtCreateSection and the loader callback don’t catch loading a completely different file? Let’s search for any instance of ABC.DLL in the rest of the hardening log to find out:
+
+\..\Tasks\dummy\ABC.dll: Owner is not trusted installer 
+\..\Tasks\dummy\ABC.dll: Relaxing the TrustedInstaller requirement for this DLL (it's in system32).
+supHardenedWinVerifyImageByHandle: -> 22900 (\..\Tasks\dummy\ABC.dll)
+supR3HardenedWinVerifyCacheInsert: \..\Tasks\dummy\ABC.dll
+supR3HardenedDllNotificationCallback:  c:\..\tasks\dummy\ABC.DLL 
+supR3HardenedScreenImage/LdrLoadDll: cache hit (Unknown Status 22900) on \...\Tasks\dummy\ABC.dll
+
+Again the first two lines indicate we bypassed the Owner check because of our file's location. The next line, supHardenedWinVerifyImageByHandle is more interesting however. This function verifies the image file. If you look back in this blog at the earlier log of this check you’ll find it returned the result -22900, which was considered an error. However in this case it’s returning 22900, which as VBOX is treating any result >= 0 as success the hardening code gets confused and assumes that the file is valid. The negative error code is VERR_LDRVI_NOT_SIGNED in the source code, whereas the positive “success” code is VINF_LDRVI_NOT_SIGNED. 
+
+This seems to be a bug in the verification code when calling code in the DLL Loader Lock, such as in the NtCreateSection hook. The code can’t call WinVerifyTrust in case it tries to load another DLL, which would cause a deadlock. What would normally happen is VINF_LDRVI_NOT_SIGNED is returned from the internal signature checking implementation. That implementation can only handle files with embedded signatures, so if a file isn’t signed it returns that information code to get the verification code to check if the file is catalog signed. What’s supposed to happen is WinVerifyTrust is called and if the file is still not signed it returns the error code, however as WinVerifyTrust can’t be called due to the lock the information code gets propagated to the caller which assumed it’s a success code.
+
+The final question is why the final Loader Callback doesn’t catch the unsigned file? VBOX implements a signed file cache based on the path to avoid checking a file multiple times. When the call to supHardenedWinVerifyImageByHandle was taken to be a success the verifier called supR3HardenedWinVerifyCacheInsert to add a cache entry for this path with the “success” code. We can see that in the Loader Callback it tries to verify the file but gets back a “success” code from the cache so assumes everything's okay, and the loading process is allowed to complete.
+
+Quite a complex set of interactions to get code running. How did Oracle fix this issue? They just add the DLL extension if there’s no extension present. They also handle the case where the filename has a trailing period (which would be removed when loading the DLL).
+Exploiting Kernel-Mode Image Loading Behavior
+The final bug I’m going to describe was fixed as CVE-2017-10129 in VBOX version 5.1.24. This isn’t really a bug in VBOX as much as it’s an unexpected behavior in Windows. 
+
+Through all this it’s worth noting that there’s an implicit race condition in what the hardening code is trying to do, specifically if you could change the file between the verification point and the point where the file is mapped. In theory you could do this to VBOX but the timing window is somewhat short. You could use OPLOCKs and the like but it’s a bit of a pain, instead it’d be nice to get the TOCTOU attack for free.
+
+Let’s look at how image files are handled in the kernel. Mapping an image file on Windows is expensive, the OS doesn’t use position independent code and so can’t just map the DLL into memory as a simple file. Instead the DLL must be relocated to a specific memory address. This requires modifying pages of the DLL file to ensure any pointers are correctly fixed up. This is even more important when you bring ASLR into the mix as ASLR will almost always force a DLL to be relocated from its base address. Therefore, Windows caches an instance of an image mapping whenever it can, this is why the load address of a DLL doesn’t change between processes on the same system, it’s using the same cached image section.
+
+The caching is actually in part under control of the filesystem driver. When a file is opened the IO manager will allocate a new instance of the FILE_OBJECT structure and pass it to the IRP_MJ_CREATE handler for the driver. One of the fields that the driver can then initialize is the SectionObjectPointer. This is an instance of the SECTION_OBJECT_POINTERS structure, which looks like the following:
+
+struct SECTION_OBJECT_POINTERS {
+  PVOID DataSectionObject;
+  PVOID SharedCacheMap;
+  PVOID ImageSectionObject;
+};
+
+The fields themselves are managed by the Cache manager, but the structure itself must be allocated by the File System driver. Specifically the allocation should be one per-file in the filesystem; while each open instance of a specific file will have unique FILE_OBJECT instances the SectionObjectPointer should be the same. This allows the Cache manager to fill in the different fields and then reuse them if another instance of the same file tries to be mapped.
+
+The important field here is ImageSectionObject which contains the cached data for the mapped image section. I’m not going to delve into detail of what the ImageSectionObject pointer contains as it’s not really relevant. The important thing is if the SectionObjectPointer and by extension the ImageSectionObject pointers are the same for a FILE_OBJECT instance then mapping that file as an image will map the same cached image mapping. However, as ImageSectionObject pointer is not used when reading from a file it doesn’t follow that what’s actually cached still matches what’s on disk.
+
+Trying to desynchronize the file data from the SectionObjectPointer seems to be pretty tricky with an NTFS volume, at least without administrator privileges. One scenario where you can do this desynchronization is via the SMB redirector when accessing network shares. The reason is pretty simple, it’s the local redirector’s responsibility to allocate the SectionObjectPointer structure when a file is opened on a remote server. As far as the the redirector’s concerned if it opens the file \Share\File.dll on a server twice then it’s the same file. There’s no real other information the redirector can use to verify the identity of the file, it has to guess. Any property you can think of, Object ID, Modification Time can just be a lie. You could easily modify a copy of SAMBA to do this lying for you. The redirector also can’t lock the file and ensure it stays locked. So it seems the redirector just doesn’t bother with any of it, if it looks like the same file from its perspective it assumes it’s fine.
+
+However this is only for the SectionObjectPointer, if the caller wants to read the contents of the file the SMB redirector will go out to the server and try to read the current state of the file. Again this could all be lies, and the server could return any data it likes. This is how we can create a desynchronization; if we map an image file from a SMB server, change the underlying file data then reopen the file and map the image again the mapped image will be the cached one, but any data read from the file will be what’s current on the server. This way we can map an untrusted DLL first, then replace the file data with a signed, valid file (SMB supports reading the owner of the file, so we can spoof TrustedInstaller), when VBOX tries to load it it will verify the signed file but map the cached untrusted image and it will never know.
+
+Having a remote server isn’t ideal, however we can do everything we need by using the local loopback SMB server and access files via the admin shares. Contrary to their names admin shares are not limited to administrators if you’re coming from localhost. The key to getting this to work is to use a Directory Junction. Junctions are resolved on the server, the redirector client knows nothing about them. Therefore as far as the client is concerned if it opens the file \\localhost\c$\Dir\File.dll once, then reopens the same file these could be two completely different files as shown in the following diagram:
+
+SMB Mapping (1).png
+
+Fortunately, one thing which should be evident from the previous two issues is that VBOX’s hardening code doesn’t really care where the DLL is located as long as it meets its two criteria, it’s owned by TrustedInstaller and it’s signed. We can point the COM hijack to a SMB share on the local system. Therefore we can perform the attack as follows:
+
+Set up a junction on the C: drive pointing at a directory containing our untrusted file.
+Map the file via the junction over the c$ admin share using LoadLibrary, do not release the mapping until the exploit is complete.
+Change the junction to point to another directory with a valid, signed file with the same name as our untrusted file.
+Start VBOX with the COM hijack pointing at the file. VBOX will read the file and verify it’s signed and owned by TrustedInstaller, however when it maps it the cached, untrusted image section will be used instead.
+
+So how did Oracle fix this? They now check that the mapped file isn’t on a network share by comparing the path against the prefix \Device\Mup. 
+Conclusions
+
+The implementation of process hardening in VirtualBox is complex and because of that it is quite error prone. I’m sure there are other ways of bypassing the protection, it just requires people to go looking. Of course none of this would be necessary if they didn’t need to protect access to the VirtualBox kernel driver from malicious use, but that’s a design decision that’s probably going to be difficult to fix in the short term.
