@@ -1,0 +1,47 @@
+1. Phishing
+- We define phishing as the “practice of sending emails appearing to be from reputable sources with the goal of influencing or gaining personal information”. Phishing is one of the biggest cybercrime threats facing organizations and individuals today. 
+- Phishing can involve an attachment within an email that loads malware onto a computer or a link to an illegitimate website that can trick an individual into handing over personal information.
+
+1.1 URL and Email Manipulation
+- Phishing schemes are successful because people trust messages from well-known, reputable sources. For this reason,  a common phishing tactic bad actors use is to manipulate a URL. Criminals know that if the URL looks close enough to a trusted site, the odds are they can fool you to click on it. For example, when a user scans over a URL like http://www.company.com, it looks almost identical to http://www.cornpany.com if the font is right. Another example is support.amazon.com versus the more dangerous support-amazon.com. Surprisingly, URL manipulation requires very little time or effort. The bad actor purchases a domain that closely resembles the legitimate URL. Then the attacker sets up an email account and spoofs the website.
+- Phish get even more confusing and dangerous when you are checking your email on a smartphone or other mobile device. Why is this so? One reason is because you can’t hover over a link to see where it goes. Additionally, you are unable to see the whole email address of the sender.
+
+1.2 Common Phishing Vectors
+1.2.1 Current Events
+- Bad actors take advantage of current events such as disasters, large public events, holidays, or data breaches to phish large groups of targets for information.  For instance, the novel coronavirus pandemic is a current event that cyber criminals quickly exploited. According to The Federal Trade Commission (FTC) from January 1, 2020 to July 19, 2020 there were 71,026 COVID19 and Stimulus fraud cases reported with a total of $89.51M in total loses.
+- Another example is the 2017 Equifax data breach. Shortly after the data breach, The Better Business Bureau (BBB) issued an alert that scammers created 194 phishing websites just one day after the breach and launch of legitimate help websites. The BBB also warned about phishing emails requesting verification of transactions or to check account status.
+
+1.2.2 Charity Scams
+- The devastating Woosley and Camp fires in California in November 2018 left countless families homeless and grief-stricken. Attackers were quick to take advantage of this distressing tragedy. Agari issued an alert warning that criminals were specifically targeting workplaces. Posing as the targeted enterprise’s CEO, the attackers sent emails to employees in accounting, finance, or administration with instructions to purchase gift cards purportedly to provide financial assistance for clients who are fire victims.
+- Another example is the large scale earthquake that struck Nepal in April 2015. Attackers quickly took advantage of a devastating situation. The U.S. Computer Emergency Readiness team (US-CERT) issued an alert to the public about phishing emails and websites requesting donations for fraudulent charitable organizations.
+
+1.2.3 Tech Support
+- Tech support impersonation is a classic attack vector. The ubiquitous Microsoft tech support scam has been making the rounds in Indiana, USA. As reported by RTV6, a work at home senior received a pop-up message on her computer saying Microsoft locked her computer due to malware and spyware. Her reaction? She panicked. “I was just like ‘let’s get this taken care of so I can work.'” In another report, a woman lost over $30,000 because of the Microsoft tech support scam.- Consider another example. In  2004, students and staff of University of California received spoof emails from the technical support team. The emails said that their computers were infected with a virus. Once opened, the attachment would infect the computer with a variant of the MyDoom virus.
+- Compare the above example to June, 2015, when University of Michigan staff warned that malicious hackers were phishing students by sending them to fake Google Forms in order to obtain the student’s’ credentials and personal identifying information. Over 150 students fell prey to the “tech support” phish before staff were able to send out a warning to the students.
+
+1.2.4 Financial
+- Posing as a financial institution is another common tactic of malicious attackers. Criminals may not know what bank you use. However, they do know that if they send out mass emails posing as a well-known bank, the probability that it happens to be your bank is pretty high. In some cases, they might know that it’s your bank. If that’s the case, they may include your name and address in the email. Their goal? To have you click a link or open an attachment.
+
+1.2.5 Government
+- Government agencies such as the IRS are commonly impersonated by criminals. 
+- In 2019, the IRS reported on a scam known as the Tax Account Transcript scam. In this scam, criminals send emails pretending to be from “IRS Online. ” The email contains an attachment labeled “Tax Account Transcript” as bait to entice users to open documents containing malware. When the attachment is opened, malware is unleashed. In another tax scam, attackers send phishing emails with the instruction to “update your IRS e-file immediately.” When the intended victim clicks the link, they are taken to a fake website that spoofs the official IRS website.
+
+1.2.5.1 Ransomware
+- Criminals are targeting municipal government with ransomware, holding data and/or systems hostage, bringing city operations to a stand-still. Such was the case in Del Rio, Texas after a ransomware attack effectively closed–down City Hall servers.  
+
+1.2 Spear Phishing
+- Due to the success of phishing attacks, malicious phishers have developed a refined technique known as spear phishing. A spear phishing email is more targeted than a general phishing email. Instead of sending out thousands of emails hoping to catch a few random victims, spear phishing targets specific higher profile people. People who have access to something the attacker wants. Attackers conduct open source intelligence (OSINT) to craft an email that specifically caters to the recipient’s job, personal situation or preferences.
+- Before sharing examples of spear phishing, it’s important to discuss one of the attacker’s source for this level of information: social media.  The pervasive use of social media provides a gold mine of personal data that attackers can use. Because of our culture of sharing, people are equipping attackers with all the information they need without realizing it. The smallest bit of information, sometimes even from profile pictures, can put the attacker on track to creating a solid phish.
+
+1.3 Whaling
+- Similar to spear phishing, whaling is a highly-targeted attack vector. It’s designed to strike at an organization’s “big phish”. A big phish is a high-value individual. Such as a senior executive, a high-level official in private business, or anyone with privileged access to government (or top secret) information. These high value targets have credentials or access that if compromised, could endanger the entire business. 
+- Similar to spear phishing, these attacks can be more difficult to detect because of their stealth and because they are generally sent on a one-time basis. 
+- Because the target is so high value, it’s important for the attacker to do their research on the intended target in order to identify possible interests to craft the right phish.  An attacker will stop at nothing, even if it means tugging on heart strings, to get a click. Prime whaling targets would be senior executives, high-level officials in private businesses, or even those with privileged access to government (or top secret) information.
+
+1.4 Penetration Testing and Phishing
+- Phishing is a well-used social engineering attack vector for penetration testers (or pentesters). Penetration testers should employ these methods without the malicious intent to show a company how devastating these attacks can be. 
+
+1.4.1 Purposes
+- As part of a pentest. Usually leading to a controlled compromise of the organization’s digital or human network. The exposed vulnerabilities are reported in detail to allow the organization to strengthen their security.
+- As part of a security awareness program throughout the year. With the focus on educating users on the different levels of phishing.
+- To set a baseline for assessing user susceptibility to phishing attacks and to justify future training on the topic.
