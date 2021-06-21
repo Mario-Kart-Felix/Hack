@@ -1,0 +1,13 @@
+Is this something that should be fixed upstream?
+If so, can we fix it by pinning to a specific version of nevergrad (or a dependency) that works without the warning?
+
+@jieru-hu jieru-hu commented 3 hours ago • 
+Is this something that should be fixed upstream?
+If so, can we fix it by pinning to a specific version of nevergrad (or a dependency) that works without the warning?
+
+Alternatively, we can:
+
+create an issue in nevergrad to ask them to pin to cma==3.0.3
+and/or
+pin to that version cma==3.0.3 in nevergrad sweeper ourselves.
+This warning only get issued when matplotlib is not installed - I think it makes more sense for us to filter it during testing.
