@@ -1,0 +1,13 @@
+with open(\"allbeerdata.json\", \"r\") as f:\n",
+      "    data = json.load(f)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "collapsed": false,
+     "input": [
+      "data.keys()\n",
+      "data['count']"
+     ],
+     "language": "python",
+     "metadata": {},
