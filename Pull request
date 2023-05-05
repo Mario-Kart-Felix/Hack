@@ -1,0 +1,81 @@
+
+//
+## Pull Request Documentation
+
+### Description
+This pull request adds a new feature to the project that allows users to sort products by price. The new feature is implemented in the `products` module and includes the following changes:
+
+1. A new function `sortProductsByPrice` has been added to the `products` module.
+2. A new API endpoint `/products?sortBy=price` has been added to the server.
+3. The API endpoint `/products` has been modified to accept a new query parameter `sortBy`.
+
+### Motivation
+The motivation behind this pull request is to provide users with the ability to sort products by price, which is a commonly requested feature.
+
+### Changes Made
+The following changes have been made in this pull request:
+
+1. A new function `sortProductsByPrice` has been added to the `products` module. This function sorts the products array by price in ascending order.
+2. A new API endpoint `/products?sortBy=price` has been added to the server. This endpoint calls the `sortProductsByPrice` function and returns the sorted products array.
+3. The API endpoint `/products` has been modified to accept a new query parameter `sortBy`. This parameter is used to determine whether to sort the products by price or not.
+
+### Testing
+The new feature has been tested thoroughly to ensure that it works as expected. The following tests have been added:
+
+1. A test to ensure that the new `sortProductsByPrice` function sorts the products array by price in ascending order.
+2. A test to ensure that the new API endpoint `/products?sortBy=price` returns the sorted products array.
+3. A test to ensure that the API endpoint `/products` returns the unsorted products array when the `sortBy` query parameter is not present.
+
+### Checklist
+The following items have been checked off in this pull request:
+
+- [x] The code has been tested thoroughly.
+- [x] The documentation has been updated to reflect the changes made.
+- [x] The pull request has been reviewed by at least one other developer.
+
+## Complex Sample Documentation
+
+### Description
+This is a complex sample that demonstrates how to implement a real-time chat application using Node.js, Socket.io, and React. The sample includes a server that listens for incoming connections and broadcasts messages to all connected clients. The client-side code is implemented using React and Socket.io-client, and allows users to send and receive messages in real-time.
+
+### Installation
+To run the sample, follow these steps:
+
+1. Clone the repository to your local machine.
+2. Install the dependencies by running `npm install` in the root directory.
+3. Start the server by running `npm run server` in the root directory.
+4. Start the client by running `npm run client` in a separate terminal window.
+
+### Usage
+Once the sample is up and running, you can open the client in a web browser by navigating to `http://localhost:3000`. The client interface allows you to enter a username and start sending messages to the server. The server broadcasts all incoming messages to all connected clients in real-time.
+
+### Code Structure
+The sample is divided into two main parts: the server-side code and the client-side code.
+
+//
+
+#### Server-Side Code 
+
+The main server file is `server.js`, which creates a Socket.io server instance and listens for incoming connections. When a client connects, the server adds the client to a list of connected clients and listens for incoming messages. When a message is received, the server broadcasts the message to all connected clients.
+
+The server-side code is organized into the following files:
+
+- `server.js`: The main server file that creates the Socket.io server instance and handles incoming connections and messages.
+
+- `utils.js`: A utility file that contains helper functions for managing the list of connected clients and broadcasting messages.
+
+#### Client-Side Code
+
+The client-side code is implemented using React and Socket.io-client. The main React component is `ChatApp`, which renders a chat interface and handles sending and receiving messages. When the component mounts, it creates a Socket.io-client instance and connects to the server. When the user sends a message, the component emits a message event to the server. When the client receives a message event from the server, it adds the message to the chat history and updates the UI.
+
+The client-side code is organized into the following files:
+
+- `ChatApp.js`: The main React component that renders the chat interface and handles sending and receiving messages.
+
+- `utils.js`: A utility file that contains helper functions for formatting timestamps and generating unique IDs.
+
+### Conclusion
+
+This complex sample demonstrates how to implement a real-time chat application using Node.js, Socket.io, and React. The sample provides a solid starting point for building your own real-time chat application and can be easily customized and extended to meet your specific needs.
+
+ 
